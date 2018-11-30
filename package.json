@@ -1,0 +1,22 @@
+{
+  "name": "xooa_blockchain_apis",
+  "description": "List_of_Xooa_Blockchain_APIs",
+  "license": "Xooa Licence",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --recursive"
+  },
+  "browser": {
+    "fs": false
+  },
+  "dependencies": {
+    "log4js": "^3.0.6",
+    "mocha": "^5.2.0",
+    "socket.io-client": "^2.1.1",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "sinon": "1.17.3"
+  }
+}
