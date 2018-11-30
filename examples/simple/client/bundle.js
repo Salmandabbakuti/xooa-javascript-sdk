@@ -15265,7 +15265,6 @@ module.exports = yeast;
     }
 
     /**
-     * Submit blockchain transaction
      * The invoke function is used for submitting transaction for processing by the blockchain smart contract app
 	   * when the transaction payload need to be persisted into the Ledger (new block is mined).
 	   * Required permission: write ("Access":"rw")
@@ -15282,7 +15281,6 @@ module.exports = yeast;
     }
 
     /**
-     * Submit blockchain transaction
      * The invokeAsync function is used for submitting transaction for processing by the blockchain smart contract app aynchronously
 	   * when the transaction payload need to be persisted into the Ledger (new block is mined).
 	   * Required permission: write ("Access":"rw")
