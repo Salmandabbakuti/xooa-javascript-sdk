@@ -158,23 +158,13 @@ let Chaincode = class {
 		//}
 		var counterValue = 0
 		if (args.length == 2) {
-			console.log("args 1: ", args[1]);
 			counterValue = parseInt(args[1]);
 			console.log("counterValue: ", counterValue);
-		}
-		var carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
-		console.log(carAsBytes);
-		if (carAsBytes) {
-			console.log("cv1: ", counterValue);
-			counterValue += parseInt(carAsBytes.toString());
-			console.log("cv2: ", counterValue);
-		}
-		console.log("cv: ", counterValue);
-		console.log("cvas: ", String(counterValue));
-
-		stub.setEvent("putstate", Buffer.from(String(counterValue)));
-		await stub.putState(args[0], Buffer.from(String(counterValue)));
-		console.info("============= END : Create Car ===========");
+			
+			stub.setEvent("putstate", Buffer.from(String(counterValue)));
+			await stub.putState(args[0], Buffer.from(String(counterValue)));
+			console.info("============= END : Create Car ===========");
+		} 
 	}
 };
 
