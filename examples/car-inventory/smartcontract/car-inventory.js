@@ -163,9 +163,11 @@ let Chaincode = class {
 			console.log("counterValue: ", counterValue);
 		}
 		var carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
-
+		console.log(carAsBytes);
 		if (carAsBytes) {
+			console.log("cv1: ", counterValue);
 			counterValue += parseInt(carAsBytes.toString());
+			console.log("cv2: ", counterValue);
 		}
 		console.log("cv: ", counterValue);
 		console.log("cvas: ", String(counterValue));
