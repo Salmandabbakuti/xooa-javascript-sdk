@@ -167,6 +167,9 @@ let Chaincode = class {
 		if (carAsBytes) {
 			counterValue += parseInt(carAsBytes.toString());
 		}
+		console.log("cv: ", counterValue);
+		console.log("cvas: ", String(counterValue));
+
 		stub.setEvent("putstate", Buffer.from(String(counterValue)));
 		await stub.putState(args[0], Buffer.from(String(counterValue)));
 		console.info("============= END : Create Car ===========");
