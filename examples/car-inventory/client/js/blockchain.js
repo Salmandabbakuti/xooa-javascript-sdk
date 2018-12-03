@@ -19,7 +19,7 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJSNkhNN0pTLURQNk1SOU0tSFdSMzVXRi1IRUM2MVA0IiwiQXBpU2VjcmV0IjoidWlNaHhzVDduMmtSMlZ4IiwiUGFzc3BocmFzZSI6ImNiNDUzN2ZkN2YzYjdmM2E5NDQ4M2UyNGZmMWQ5Y2E5IiwiaWF0IjoxNTQzODMxMTg2fQ.-08egnh--McNWmHQj0EUfkbnPJ37UuJ2f5rc3HFuMKw")
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJIVzBDRTNSLVZCVDRXRkotTlZYRjQ4Ti02Q0RZWUdKIiwiQXBpU2VjcmV0IjoielhnOURXUFNLTXY3N0hkIiwiUGFzc3BocmFzZSI6ImE1YzkyM2E4NTU4ZjBmZmI5N2Y0M2FmMjIyYTM1NDAxIiwiaWF0IjoxNTQzODMzOTczfQ.aPbW6oMIRH-7xZhZ_0vvfjw5KxzuBzZvAL10MDAJiHY")
 
     function fetchLastTransaction() {
         xooaClient.getCurrentBlock({}, (error, pendingResponse, block) => {
