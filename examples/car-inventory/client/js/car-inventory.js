@@ -19,7 +19,7 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIxTktEUzQwLTU0WDQwOFctUTMwQlc4Uy1aSkg5SEtIIiwiQXBpU2VjcmV0IjoibWFDRTJiYTFYY21RVlc5IiwiUGFzc3BocmFzZSI6IjZiNTU4MTAzNGM4OWJhM2NmMzY2M2IwZTQ4ZjU0YmQ4IiwiaWF0IjoxNTQxNDg2NzM1fQ.w12oKDMLmnKn_-vMZCxu9mb2fb3r8RXxMWuVEjg9H48")
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJXMDRQRTRELVpOQ01NWFktUUM3SllUWC1HN0ZIU0tZIiwiQXBpU2VjcmV0IjoiYkEzNHI5RXY5MFVrbjhIIiwiUGFzc3BocmFzZSI6IjIwNTAxYzRkYjcyODdhMWQxMjNlZGU4OWU2ODBjM2M4IiwiaWF0IjoxNTQzODI3MjcyfQ.f_jo-ocsR-HGYVIVkIdTjd9PR7PVrMlEixkY8HpC8wQ")
 
     function displayCars() {
         xooaClient.query("getAllCars", {}, {"args": []}, (error, pendingResponse, identity) => {
