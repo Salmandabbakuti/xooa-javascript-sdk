@@ -6,7 +6,6 @@
 
 "use strict";
 const shim = require("fabric-shim");
-var logger = shim.NewLogger("car-inventory");
 
 const ClientIdentity = require("fabric-shim").ClientIdentity;
 
@@ -159,9 +158,9 @@ let Chaincode = class {
 		//}
 		let counterValue = 0
 		if (args.length == 2) {
-			logger.Info("args 1: ", args[1]);
+			console.log("args 1: ", args[1]);
 			counterValue = parseInt(args[1]);
-			logger.Info("counterValue: ", counterValue);
+			console.log("counterValue: ", counterValue);
 		}
 		let carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
 
