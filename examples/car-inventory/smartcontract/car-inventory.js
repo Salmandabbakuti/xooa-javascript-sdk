@@ -150,27 +150,6 @@ let Chaincode = class {
 		}
 	}
 
-	async decrement(stub, args) {
-		console.info("============= START : Create Car ===========");
-		if (args.length != 1) {
-			throw new Error("Incorrect number of arguments. Expecting 5");
-		}
-		let counterValue = 0;
-		let carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
-		if (carAsBytes) {
-			counterValue = parseInt(carAsBytes.toString());
-		}
-
-		if (!counterValue) {
-			counterValue = 0;
-		} else {
-			counterValue = counterValue - 1;
-		}
-		stub.setEvent("putstate", Buffer.from(String(counterValue)));
-		await stub.putState(args[0], Buffer.from(String(counterValue)));
-		console.info("============= END : Create Car ===========");
-	}
-
 	async increment(stub, args) {
 		console.log(args)
 		console.info("============= START : Create Car ===========");
