@@ -19,7 +19,7 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJXMDRQRTRELVpOQ01NWFktUUM3SllUWC1HN0ZIU0tZIiwiQXBpU2VjcmV0IjoiYkEzNHI5RXY5MFVrbjhIIiwiUGFzc3BocmFzZSI6IjIwNTAxYzRkYjcyODdhMWQxMjNlZGU4OWU2ODBjM2M4IiwiaWF0IjoxNTQzODI3MjcyfQ.f_jo-ocsR-HGYVIVkIdTjd9PR7PVrMlEixkY8HpC8wQ")
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJSNkhNN0pTLURQNk1SOU0tSFdSMzVXRi1IRUM2MVA0IiwiQXBpU2VjcmV0IjoidWlNaHhzVDduMmtSMlZ4IiwiUGFzc3BocmFzZSI6ImNiNDUzN2ZkN2YzYjdmM2E5NDQ4M2UyNGZmMWQ5Y2E5IiwiaWF0IjoxNTQzODMxMTg2fQ.-08egnh--McNWmHQj0EUfkbnPJ37UuJ2f5rc3HFuMKw")
 
     function displayIdentity() {
         xooaClient.getIdentities((error, pendingResponse, identity) => {
