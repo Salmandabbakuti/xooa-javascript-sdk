@@ -156,19 +156,19 @@ let Chaincode = class {
 		//if (args.length !== 1 || args.length !== 2) {
 		//  throw new Error("Incorrect number of arguments. Expecting 1 or 2");
 		//}
-		let counterValue = 0
+		var counterValue = 0
 		if (args.length == 2) {
 			console.log("args 1: ", args[1]);
 			counterValue = parseInt(args[1]);
 			console.log("counterValue: ", counterValue);
 		}
-		let carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
+		var carAsBytes = await stub.getState(args[0]); //get the car from chaincode state
 
 		if (carAsBytes) {
 			counterValue += parseInt(carAsBytes.toString());
 		}
 		stub.setEvent("putstate", Buffer.from(String(counterValue)));
-		await stub.putState(args[0], Buffer.from(counterValue));
+		await stub.putState(args[0], Buffer.from(String(counterValue)));
 		console.info("============= END : Create Car ===========");
 	}
 };
