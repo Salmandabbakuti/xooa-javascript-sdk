@@ -19,7 +19,7 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJIVzBDRTNSLVZCVDRXRkotTlZYRjQ4Ti02Q0RZWUdKIiwiQXBpU2VjcmV0IjoiV1FtZXI1TFNQUU81dkwyIiwiUGFzc3BocmFzZSI6ImVjYjczNTExZDAyMjYzODA4MDNlYzhmNTJjNjMxZDI1IiwiaWF0IjoxNTQzODk2NTAwfQ.MZWn5NyPAyG4-FgGKrjF6a072snbV3_I9fiHdBe-TBk")
+    xooaClient.setApiToken("<Your API token>")
 
     function displayCars() {
         xooaClient.query("getAllCars", {}, {"args": []}, (error, pendingResponse, identity) => {
