@@ -1,6 +1,6 @@
 {
-  "name": "xooa_blockchain_apis",
-  "description": "List_of_Xooa_Blockchain_APIs",
+  "name": "xooa-javascript-sdk",
+  "description": "Xooa JavaScript SDK",
   "license": "Xooa Licence",
   "main": "src/index.js",
   "scripts": {

@@ -33,7 +33,7 @@
 
     beforeEach(function () {
         instance = new XooaBlockchainApis();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJIVzBDRTNSLVZCVDRXRkotTlZYRjQ4Ti02Q0RZWUdKIiwiQXBpU2VjcmV0IjoielhnOURXUFNLTXY3N0hkIiwiUGFzc3BocmFzZSI6ImE1YzkyM2E4NTU4ZjBmZmI5N2Y0M2FmMjIyYTM1NDAxIiwiaWF0IjoxNTQzODMzOTczfQ.aPbW6oMIRH-7xZhZ_0vvfjw5KxzuBzZvAL10MDAJiHY")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
         // instance.setLoggerLevel("all")
     });
 
@@ -62,6 +62,37 @@
             });
             it('should call getBlockByNumber and response pending', async () => {
                 const [error, pendingResponse, data] = await instance.getBlockByNumber("1", {timeout: 200})
+                if (error) throw error;
+                expect(pendingResponse.resultId).not.to.be("");
+                expect(pendingResponse.resultURL).not.to.be("");
+                expect(data).to.be(undefined);
+            });
+
+        });
+        describe('Getting Transaction Data by TxId', function () {
+            it('should call getTransactionByTransactionId successfully', async () => {
+                this.timeout(10000)
+                const [error, pendingResponse, data] = await instance.getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", {});
+                if (error) throw error;
+                expect(data.previous_hash).not.to.be("");
+                expect(data.data_hash).not.to.be("");
+                expect(data.numberOfTransactions).not.to.be(0);
+                expect(data.blockNumber).not.to.be(0);
+                expect(pendingResponse).to.be(undefined)
+            });
+
+            it('should call getTransactionByTransactionIdAsync successfully', async () => {
+                //uncomment below and update the code to test blockData
+
+                const [error, pendingResponse, data] = await instance.getTransactionByTransactionIdAsync("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", {});
+                if (error) throw error;
+                expect(data.resultId).not.to.be("");
+                expect(data.resultURL).not.to.be("");
+                expect(pendingResponse).to.be(undefined);
+
+            });
+            it('should call getTransactionByTransactionId and response pending', async () => {
+                const [error, pendingResponse, data] = await instance.getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", { timeout: 200 })
                 if (error) throw error;
                 expect(pendingResponse.resultId).not.to.be("");
                 expect(pendingResponse.resultURL).not.to.be("");

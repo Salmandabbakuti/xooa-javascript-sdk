@@ -14440,12 +14440,6 @@ module.exports = yeast;
             this.connectServer(regExFilter, callback);
         }
 
-
-        this.subscribeEvents = function (regExFilter, callback) {
-            this.connectServer(regExFilter, callback);
-        }
-
-
         this.unsubscribe = function (regExFilter, callback) {
             this.unsubscribeE(regExFilter, callback);
         }
@@ -14457,7 +14451,7 @@ module.exports = yeast;
         if (regExFilter !== "*") {
             var regExp = new RegExp(regExFilter)
         }
-        const socket = io("https://api.staging.xooa.io", {
+        const socket = io("https://api.xooa.com", {
             path: "/subscribe"
         });
         socketG = socket;
@@ -15487,15 +15481,6 @@ module.exports = yeast;
     }
 
     /**
-     * Subscribe regEx based  events
-     * Listen to the event server for smart contract events
-     * @param {String} regExFilter "Setting regex based event "
-     */
-    function subscribeEvents(regExFilter, callback) {
-        EventClient.subscribeEvents(regExFilter, callback)
-    }
-
-    /**
      * Unsubscribe to all events
      * */
     function unsubscribe() {
@@ -15537,7 +15522,6 @@ module.exports = yeast;
             setApiToken: setApiToken,
             setURL: setURL,
             subscribeAllEvents: subscribeAllEvents,
-            subscribeEvents: subscribeEvents,
             unsubscribe: unsubscribe,
         }
 

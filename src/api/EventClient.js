@@ -58,13 +58,6 @@
         }
 
 
-        this.subscribeEvents = function (regExFilter, callback) {
-            apiClient.logger.debug({"fn": "subscribeEvents", regExFilter: regExFilter})
-
-            this.connectServer(regExFilter, callback);
-        }
-
-
         this.unsubscribe = function (callback) {
             apiClient.logger.debug({"fn": "unsubscribe"})
             this.unsubscribeE( callback);

@@ -146,6 +146,63 @@
                 contentTypes, accepts, returnType, queryParams.async, callback
             );
         }
+
+        /**
+         * Callback function to receive the result of the transaction operation.
+         * @callback module:api/BlockchainApi~transactionCallback
+         * @param {String} error Error message, if any.
+         * @param data This operation does not return a value.
+         * @param {String} response The complete HTTP response.
+         */
+
+        /**
+         * Get block data (block #)
+         * Get specific transaction information
+         * @param {String} txId Transaction Id to fetch data
+         * @param {Object} opts Optional parameters
+         * @param {String} opts.async Call this request asynchronously without waiting for response
+         * @param {String} opts.timeout Request timeout in millisecond
+         * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+         */
+        this.getTransactionByTransactionId = async function (txId, opts) {
+            apiClient.logger.debug({
+                "fn": "getTransactionByTransactionId", txId:
+                    txId, opts:
+                    opts
+            })
+            opts = opts || {};
+            var postBody = null;
+
+            // verify the required parameter 'txId' is set
+            if (txId === undefined || txId === null) {
+                throw new Error("Missing the required parameter 'txId' when calling getTransactionByTransactionId");
+            }
+
+
+            var pathParams = {
+                'TxId': txId
+            };
+            var queryParams = {
+                'async': opts['async'],
+                'timeout': opts['timeout'],
+            };
+            apiClient.logger.debug({ "fn": "getTransactionByTransactionId", queryParams: queryParams })
+
+            var collectionQueryParams = {};
+            var headerParams = {};
+            var formParams = {};
+
+            var contentTypes = [];
+            var accepts = [];
+            var returnType = null;
+
+
+            return await this.apiClient.callApi(
+                '/block/{TxId}', 'GET',
+                pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, queryParams.async
+            );
+        };
     };
 
     return exports;

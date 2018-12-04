@@ -33,7 +33,7 @@
 
     beforeEach(function () {
         instance = new XooaBlockchainApis();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJIVzBDRTNSLVZCVDRXRkotTlZYRjQ4Ti02Q0RZWUdKIiwiQXBpU2VjcmV0IjoielhnOURXUFNLTXY3N0hkIiwiUGFzc3BocmFzZSI6ImE1YzkyM2E4NTU4ZjBmZmI5N2Y0M2FmMjIyYTM1NDAxIiwiaWF0IjoxNTQzODMzOTczfQ.aPbW6oMIRH-7xZhZ_0vvfjw5KxzuBzZvAL10MDAJiHY")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
 
     });
 
@@ -43,14 +43,6 @@
             it('should call subscribeEvent successfully', function (done) {
                 this.timeout(15000)
                 instance.subscribeAllEvents( function (data) {
-                    expect(data.txId.length).to.be("ac33351bfefbbe7bf39ae792085eea0e320ebddd960400d7c737c5957ac6a695".length);
-                    instance.unsubscribe()
-                    done()
-                });
-            });
-            it('should call subscribeEvents successfully', function (done) {
-                this.timeout(15000)
-                instance.subscribeEvents("putstate", function (data) {
                     expect(data.txId.length).to.be("ac33351bfefbbe7bf39ae792085eea0e320ebddd960400d7c737c5957ac6a695".length);
                     instance.unsubscribe()
                     done()
