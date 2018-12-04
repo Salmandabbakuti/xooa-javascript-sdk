@@ -50,13 +50,18 @@
         "canManageIdentities": true
     }
 
-    var idTemp = ""
-    var resultId = "'e7e8af84-fab6-456b-ab60-ceef38b82d60'"
+    var invokeResultID = "f2dd1f2a-9733-4f55-8be4-b767035da95f";
+    var queryResultID = "880671f6-b5ba-467e-8e12-ee935ebe9826";
+    var identityResultID = "e2e98400-bce2-4afa-9794-419d1a02192d";
+    var deleteIdentityResultID = "20e173ad-53dc-4860-9455-829582a54dac";
+    var currentBlockResultID = "a5ba06d5-3d7a-474e-90be-68f900ce555e";
+    var blockResultID = "25c99609-572d-49ed-b904-9d0ae9cc95f9";
+    var transactionResultID = "83c94909-60b5-453d-8f82-75846cecfeb5";
 
     describe('ResultApi', function () {
         describe('result', function () {
             it('should call getResultForBlockByNumber successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForBlockByNumber(resultId)
+                let [error, pendingResponse, data] = await instance.getResultForBlockByNumber(blockResultID)
                 data = data.payload;
                 expect(data.previous_hash).not.to.be("");
                 expect(data.data_hash).not.to.be("");
@@ -65,7 +70,7 @@
                 expect(pendingResponse).to.be(undefined);
             });
             it('should call getResultForCurrentBlock successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForCurrentBlock(resultId)
+                let [error, pendingResponse, data] = await instance.getResultForCurrentBlock(currentBlockResultID)
                 data = data.payload;
                 expect(data.previous_hash).not.to.be("");
                 expect(data.data_hash).not.to.be("");
@@ -74,7 +79,7 @@
                 expect(pendingResponse).to.be(undefined);
             })
             it('should call getResultForIdentity successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForIdentity(resultId)
+                let [error, pendingResponse, data] = await instance.getResultForIdentity(identityResultID)
                 data = data.payload;
                 expect(data.previous_hash).not.to.be("");
                 expect(data.data_hash).not.to.be("");
@@ -83,41 +88,29 @@
                 expect(pendingResponse).to.be(undefined);
             });
 
-            it('should call getResultFor regenerateIdentityApiTokenAsync successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForIdentity(resultId)
-                data = data.payload;
-                expect(data.previous_hash).not.to.be("");
-                expect(data.data_hash).not.to.be("");
-                expect(data.numberOfTransactions).not.to.be(0);
-                expect(data.blockNumber).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
-            });
-
-            it('should call getResultForIdentity successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForIdentity(resultId)
-                data = data.payload;
-                expect(data.previous_hash).not.to.be("");
-                expect(data.data_hash).not.to.be("");
-                expect(data.numberOfTransactions).not.to.be(0);
-                expect(data.blockNumber).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
-            });
-
-            it('should call getResultForIdentity successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForDeleteIdentity(resultId)
+            it('should call getResultForDeleteIdentity successfully', async () => {
+                let [error, pendingResponse, data] = await instance.getResultForDeleteIdentity(deleteIdentityResultID)
                 data = data.payload;
                 expect(data.deleted).to.be(true);
                 expect(pendingResponse).to.be(undefined);
             });
 
             it('should call getResultForInvoke successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForInvoke(resultId)
+                let [error, pendingResponse, data] = await instance.getResultForInvoke(invokeResultID)
                 data = data.payload;
                 expect(data.txId.length).to.be("6b53e116bc12c8d5ca3dfe41798d0ed85d7b7837bddf4fb0cb13eee99a4b6455".length);
                 expect(pendingResponse).to.be(undefined);
             });
+
             it('should call getResultForQuery successfully', async () => {
-                let [error, pendingResponse, data] = instance.getResultForInvoke(data.resultId)
+                let [error, pendingResponse, data] = instance.getResultForQuery(queryResultID)
+                data = data.payload;
+                expect(data.payload).not.to.be(0);
+                expect(pendingResponse).to.be(undefined);
+            });
+
+            it('should call getResultForTransaction successfully', async () => {
+                let [error, pendingResponse, data] = instance.getResultForTransaction(transactionResultID)
                 data = data.payload;
                 expect(data.payload).not.to.be(0);
                 expect(pendingResponse).to.be(undefined);
