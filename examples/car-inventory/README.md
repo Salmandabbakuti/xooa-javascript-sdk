@@ -9,3 +9,5 @@ This example is to demonstrate the usage of the functionality available in the X
 ``smartcontract`` : this directory contains the smart contract used for the example. 
 
 
+**Project documentation:** <https://docs.xooa.com>
+**Get Started:** <https://docs.xooa.com/start.html>
