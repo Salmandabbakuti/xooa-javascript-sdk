@@ -24,6 +24,10 @@ var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
 var pkg = require('./package.json');
 var browserSync = require('browser-sync').create();
+var serve = require('gulp-serve');
+var webserver = require('gulp-webserver');
+
+
 
 // Set the banner content
 var banner = ['/*!\n',
@@ -33,6 +37,10 @@ var banner = ['/*!\n',
   ' */\n',
   '\n'
 ].join('');
+
+// Running example task
+gulp.task('serveS', serve(['./','vendor']));
+
 
 // Copy third party libraries from /node_modules into /vendor
 gulp.task('vendor', function() {
@@ -45,12 +53,18 @@ gulp.task('vendor', function() {
     ])
     .pipe(gulp.dest('./vendor/bootstrap'))
 
-  // ChartJS
+    // xooa_client
   gulp.src([
-      './node_modules/chart.js/dist/*.js'
-    ])
-    .pipe(gulp.dest('./vendor/chart.js'))
+    
+    'js/car-inventory.js',
+    'js/sb-admin.js',
+    'js/blockchain.js',
+    'js/xooa-client.js',
+    'jquery.jsonPresenter.js'
+  ])
+  .pipe(gulp.dest('./vendor'))
 
+  
   // DataTables
   gulp.src([
       './node_modules/datatables.net/js/*.js',
@@ -114,28 +128,32 @@ gulp.task('css:minify', ['css:compile'], function() {
 // CSS
 gulp.task('css', ['css:compile', 'css:minify']);
 
-// Minify JavaScript
-gulp.task('js:minify', function() {
-  return gulp.src([
-      './js/*.js',
-      '!./js/*.min.js'
-    ])
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
-    .pipe(gulp.dest('./js'))
-    .pipe(browserSync.stream());
-});
+// // Minify JavaScript
+// gulp.task('js:minify', function() {
+//   return gulp.src([
+//       './js/*.js',
+//       '!./js/*.min.js'
+//     ])
+//     .pipe(uglify())
+//     .pipe(rename({
+//       suffix: '.min'
+//     }))
+//     .pipe(header(banner, {
+//       pkg: pkg
+//     }))
+//     .pipe(gulp.dest('./js'))
+//     .pipe(browserSync.stream());
+// });
 
-// JS
-gulp.task('js', ['js:minify']);
+// // JS
+// gulp.task('js', ['js:minify']);
 
 // Default task
-gulp.task('default', ['css', 'js', 'vendor']);
+gulp.task('default', ['css', 'vendor']);
+
+//running server 
+gulp.task('serve', ['default', 'serveS']);
+
 
 // Configure the browserSync task
 gulp.task('browserSync', function() {
@@ -146,8 +164,18 @@ gulp.task('browserSync', function() {
   });
 });
 
+ 
+gulp.task('webserver', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: true
+    }));
+});
+
 // Dev task
-gulp.task('dev', ['css', 'js', 'browserSync'], function() {
+gulp.task('dev', ['css', 'browserSync'], function() {
   gulp.watch('./scss/*.scss', ['css']);
   gulp.watch('./js/*.js', ['js']);
   gulp.watch('./*.html', browserSync.reload);
