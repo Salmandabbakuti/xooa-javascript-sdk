@@ -13640,10 +13640,10 @@ module.exports = yeast;
         module.exports = factory(require('superagent'), require('querystring'), require("log4js"));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.ApiClient = factory(root.superagent, root.querystring, root.log4js);
+        root.XooaJavascriptSdk.ApiClient = factory(root.superagent, root.querystring, root.log4js);
     }
 }(this, function (superagent, querystring, log4js) {
     'use strict';
@@ -14259,10 +14259,10 @@ module.exports = yeast;
     module.exports = factory(require('../ApiClient'));
   } else {
     // Browser globals (root is window)
-    if (!root.XooaBlockchainApis) {
-      root.XooaBlockchainApis = {};
+    if (!root.XooaJavascriptSdk) {
+      root.XooaJavascriptSdk = {};
     }
-    root.XooaBlockchainApis.BlockchainApi = factory(root.XooaBlockchainApis.ApiClient);
+    root.XooaJavascriptSdk.BlockchainApi = factory(root.XooaJavascriptSdk.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -14405,11 +14405,11 @@ module.exports = yeast;
         module.exports = factory(require('socket.io-client'), require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
 
-        root.XooaBlockchainApis.EventClient = factory(root.io, root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.EventClient = factory(root.io, root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (io, ApiClient) {
     'use strict';
@@ -14512,10 +14512,10 @@ module.exports = yeast;
         module.exports = factory(require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.IdentitiesApi = factory(root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.IdentitiesApi = factory(root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (ApiClient) {
     'use strict';
@@ -14817,10 +14817,10 @@ module.exports = yeast;
         module.exports = factory(require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.InvokeApi = factory(root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.InvokeApi = factory(root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (ApiClient) {
     'use strict';
@@ -14929,10 +14929,10 @@ module.exports = yeast;
         module.exports = factory(require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.QueryApi = factory(root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.QueryApi = factory(root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (ApiClient) {
     'use strict';
@@ -15039,10 +15039,10 @@ module.exports = yeast;
     module.exports = factory(require('../ApiClient'));
   } else {
     // Browser globals (root is window)
-    if (!root.XooaBlockchainApis) {
-      root.XooaBlockchainApis = {};
+    if (!root.XooaJavascriptSdk) {
+      root.XooaJavascriptSdk = {};
     }
-    root.XooaBlockchainApis.ResultApi = factory(root.XooaBlockchainApis.ApiClient);
+    root.XooaJavascriptSdk.ResultApi = factory(root.XooaJavascriptSdk.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';

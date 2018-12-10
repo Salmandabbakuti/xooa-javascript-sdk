@@ -24,10 +24,10 @@
         module.exports = factory(require('superagent'), require('querystring'), require("log4js"));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.ApiClient = factory(root.superagent, root.querystring, root.log4js);
+        root.XooaJavascriptSdk.ApiClient = factory(root.superagent, root.querystring, root.log4js);
     }
 }(this, function (superagent, querystring, log4js) {
     'use strict';
@@ -54,7 +54,7 @@
         /**
          * The base URL against which to resolve every API call's (relative) path.
          * @type {String}
-         * @default https://localhost
+         * @default https://api.xooa.com/api/v1/
          */
         this.basePath = 'https://api.xooa.com/api/v1/'.replace(/\/+$/, '');
         /**

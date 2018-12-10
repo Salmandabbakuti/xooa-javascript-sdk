@@ -24,11 +24,11 @@
         module.exports = factory(require('socket.io-client'), require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
 
-        root.XooaBlockchainApis.EventClient = factory(root.io, root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.EventClient = factory(root.io, root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (io, ApiClient) {
     'use strict';
@@ -53,8 +53,7 @@
     var exports = function () {
         this.subscribeAllEvents = function (callback) {
             apiClient.logger.debug({"fn": "subscribeAllEvents"})
-            let regExFilter = "*"
-            this.connectServer(regExFilter, callback);
+            this.connectServer(callback);
         }
 
 
@@ -65,11 +64,7 @@
 
     };
 
-    exports.prototype.connectServer = function (regExFilter, callback) {
-
-        if (regExFilter !== "*") {
-            var regExp = new RegExp(regExFilter)
-        }
+    exports.prototype.connectServer = function (callback) {
         const socket = io("https://api.xooa.com", {
             path: "/subscribe"
         });
@@ -86,13 +81,7 @@
                 //console.log("Authenticated");
             })
             .on("event", (data) => {
-                if (regExFilter === "*") {
-                    callback(data)
-                } else {
-                    if (regExp.test(data.eventName)) {
-                        callback(data)
-                    }
-                }
+                callback(data)
             })
             .on("error", err => {
                 console.log("Error", err);

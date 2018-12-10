@@ -24,15 +24,15 @@
         factory(require('expect.js'), require('../../src/index'));
     } else {
         // Browser globals (root is window)
-        factory(root.expect, root.XooaBlockchainApis);
+        factory(root.expect, root.XooaJavascriptSdk);
     }
-}(this, function (expect, XooaBlockchainApis) {
+}(this, function (expect, XooaJavascriptSdk) {
     'use strict';
 
     var instance;
 
     beforeEach(function () {
-        instance = new XooaBlockchainApis();
+        instance = new XooaJavascriptSdk();
         instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
 
     });
@@ -50,7 +50,7 @@
         "canManageIdentities": true
     }
 
-    var invokeResultID = "f2dd1f2a-9733-4f55-8be4-b767035da95f";
+    var invokeResultID = "eeaf0524-c78e-43bd-8788-f5d7c0bc6fe9";
     var queryResultID = "880671f6-b5ba-467e-8e12-ee935ebe9826";
     var identityResultID = "e2e98400-bce2-4afa-9794-419d1a02192d";
     var deleteIdentityResultID = "20e173ad-53dc-4860-9455-829582a54dac";

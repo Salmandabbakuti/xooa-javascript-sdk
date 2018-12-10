@@ -24,15 +24,15 @@
         factory(require('expect.js'), require('../../src/index'));
     } else {
         // Browser globals (root is window)
-        factory(root.expect, root.XooaBlockchainApis);
+        factory(root.expect, root.XooaJavascriptSdk);
     }
-}(this, function (expect, XooaBlockchainApis) {
+}(this, function (expect, XooaJavascriptSdk) {
     'use strict';
 
     var instance;
 
     beforeEach(function () {
-        instance = new XooaBlockchainApis();
+        instance = new XooaJavascriptSdk();
         instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
         // instance.setLoggerLevel("all")
     });

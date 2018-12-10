@@ -1,7 +1,6 @@
 {
   "name": "xooa-javascript-sdk",
   "description": "Xooa JavaScript SDK",
-  "license": "Xooa Licence",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --recursive"
@@ -10,6 +9,8 @@
     "fs": false
   },
   "dependencies": {
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "log4js": "^3.0.6",
     "mocha": "^5.2.0",
     "socket.io-client": "^2.1.1",

@@ -24,10 +24,10 @@
         module.exports = factory(require('../ApiClient'));
     } else {
         // Browser globals (root is window)
-        if (!root.XooaBlockchainApis) {
-            root.XooaBlockchainApis = {};
+        if (!root.XooaJavascriptSdk) {
+            root.XooaJavascriptSdk = {};
         }
-        root.XooaBlockchainApis.QueryApi = factory(root.XooaBlockchainApis.ApiClient);
+        root.XooaJavascriptSdk.QueryApi = factory(root.XooaJavascriptSdk.ApiClient);
     }
 }(this, function (ApiClient) {
     'use strict';
