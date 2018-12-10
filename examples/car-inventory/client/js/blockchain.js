@@ -19,7 +19,7 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("<Your API token>")
+    xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
 
     function fetchLastTransaction() {
         xooaClient.getCurrentBlock({}, (error, pendingResponse, block) => {
