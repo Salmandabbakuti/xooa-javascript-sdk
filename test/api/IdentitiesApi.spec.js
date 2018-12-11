@@ -146,7 +146,7 @@
     });
     describe('deleteIdentity', function () {
         it('should call deleteIdentity successfully', async () => {
-            const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp, function (error, pendingResponse, data) {
+            const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
                 if (error) throw error;
                 expect(data.deleted).to.be(true);
                 expect(pendingResponse).to.be(undefined);
