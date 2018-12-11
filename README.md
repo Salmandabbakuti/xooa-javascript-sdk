@@ -1,4 +1,3 @@
-
 # Xooa SDK for JavaScript
 
 The official Xooa SDK for Javascript, for browsers and mobile devices, or Node.js backends
@@ -259,3 +258,4 @@ xooaClient.getResultForTransaction(transactionResultID, (error, pendingResponse,
 ## License
 
 This SDK is distributed under the Apache License, Version 2.0.
+

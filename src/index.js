@@ -120,24 +120,24 @@
 
     /**
      * Get transaction data
-     * Get specific block information such as hash, # of transactions
-     * @param {String} txId Block number to fetch data
+     * Get specific transaction information
+     * @param {String} txId Transaction Id to fetch data
      * @param {Object} opts Optional parameters
      * @param {String} opts.async Call this request asynchronously without waiting for response
      * @param {String} opts.timeout Request timeout in millisecond
-     * @param {module:api/BlockchainApi~blockDataCallback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
      */
     async function getTransactionByTransactionId(txId, opts, callback) {
         return await BlockchainApi.getTransactionByTransactionId(txId, opts, callback);
     }
 
     /**
-     * Get block data (block #)
-     * Get specific block information such as hash, # of transactions
-     * @param {String} txId Block number to fetch data
+     * Get transaction data
+     * Get specific transaction information
+     * @param {String} txId Transaction Id to fetch data
      * @param {Object} opts Optional parameters
      * @param {String} opts.timeout Request timeout in millisecond
-     * @param {module:api/BlockchainApi~blockDataCallback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
      */
     async function getTransactionByTransactionIdAsync(txId, opts, callback) {
         Object.assign(opts, { async: true })

@@ -156,7 +156,7 @@
          */
 
         /**
-         * Get block data (block #)
+         * Get transaction data
          * Get specific transaction information
          * @param {String} txId Transaction Id to fetch data
          * @param {Object} opts Optional parameters
