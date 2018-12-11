@@ -150,14 +150,14 @@
          * @param {String} identity Request payload body
          * @param {module:api/IdentitiesApi~enrollmentCallback} callback The callback function, accepting three arguments: error, data, response
          */
-        this.enrollIdentity =async function (opts, identity, callback) {
+        this.enrollIdentity = async function (opts, identity, callback) {
             apiClient.logger.debug({"fn": "enrollIdentity", opts: opts, identity: identity})
 
             opts = opts || {};
 
             // verify the required parameter 'id' is set
             if (identity === undefined || identity === null) {
-                throw new Error("Missing the required parameter 'id' when calling deleteIdentity");
+                throw new Error("Missing the required parameter 'id' when calling enrollIdentity");
             }
             var postBody = identity;
             var pathParams = {};
