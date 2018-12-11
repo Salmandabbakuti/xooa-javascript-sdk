@@ -500,13 +500,13 @@
                             }
                         } catch (err) {
                             error = err;
-                            reject(error)
+                            resolve(error.message)
 
                         }
 
                     } else {
                         _this.logger.error(error)
-                        reject(error, undefined, undefined);
+                        resolve(error, undefined, undefined);
                     }
                 }
             );
