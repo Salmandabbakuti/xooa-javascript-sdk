@@ -1,4 +1,3 @@
-
 # Xooa SDK for JavaScript
 
 The official Xooa SDK for Javascript, for browsers and mobile devices, or Node.js backends
@@ -228,3 +227,4 @@ console.log(error, pendingResponse, data);
 ## License
 
 This SDK is distributed under the Apache License, Version 2.0.
+
