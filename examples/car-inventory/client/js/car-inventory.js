@@ -19,10 +19,10 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIxTktEUzQwLTU0WDQwOFctUTMwQlc4Uy1aSkg5SEtIIiwiQXBpU2VjcmV0IjoiRmNncUpMbWlvOHlsM1NSIiwiUGFzc3BocmFzZSI6ImM5ZDM4OThkOWJhOTIxM2JjOTgxOGVmYWI5OTc4Y2FiIiwiaWF0IjoxNTQ0Njg5NzgyfQ.3d7_RmFwjOWBeDVdqPP7-mSnfMdsj1kpBl0N0F2HFdA")
 
-    function displayCars() {
-        xooaClient.query("getAllCars", {}, {"args": []}, (error, pendingResponse, identity) => {
+   async  function displayCars() {
+      const [error, pendingResponse, identity] = await  xooaClient.query("getAllCars", {}, {"args": []})
             if (identity && identity.payload) {
                 $("#dataTable tr").remove();
                 $('#dataTable > tbody:last-child').append(`<tr><th>Car Model</th><th>Available Count</th></tr>`)
@@ -31,7 +31,7 @@
 
                 })
             }
-        })
+        
     }
 
     $('#submit-modal').click(function () {

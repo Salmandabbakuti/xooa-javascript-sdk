@@ -15,22 +15,23 @@
 * Author: Arisht Jain
 */
 
-(function ($) {
+(async function ($) {
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIxTktEUzQwLTU0WDQwOFctUTMwQlc4Uy1aSkg5SEtIIiwiQXBpU2VjcmV0IjoiRmNncUpMbWlvOHlsM1NSIiwiUGFzc3BocmFzZSI6ImM5ZDM4OThkOWJhOTIxM2JjOTgxOGVmYWI5OTc4Y2FiIiwiaWF0IjoxNTQ0Njg5NzgyfQ.3d7_RmFwjOWBeDVdqPP7-mSnfMdsj1kpBl0N0F2HFdA")
 
-    function displayIdentity() {
-        xooaClient.getIdentities((error, pendingResponse, identity) => {
-            if (identity && identity.length > 0) {
+    async function displayIdentity() {
+        const [error, pendingResponse, identity] = await  xooaClient.getIdentities()
+        if (identity && identity.length > 0) {
                 console.log(identity)
                 identity.forEach((i) => {
+                    console.log("identity > > ",i)
                     $('#dataTable > tbody:last-child').append(`<tr><td>${i.Id}</td><td>${i.IdentityName}</td><td>${i.canManageIdentities}</td><td>${i.Access}</td><td>${i.createdAt}</td></tr>`)
 
                 })
             }
-        })
+        
     }
 
     displayIdentity()

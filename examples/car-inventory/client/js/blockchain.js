@@ -19,10 +19,10 @@
     "use strict"; // Start of use strict
 
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
-
-    function fetchLastTransaction() {
-        xooaClient.getCurrentBlock({}, (error, pendingResponse, block) => {
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIxTktEUzQwLTU0WDQwOFctUTMwQlc4Uy1aSkg5SEtIIiwiQXBpU2VjcmV0IjoiRmNncUpMbWlvOHlsM1NSIiwiUGFzc3BocmFzZSI6ImM5ZDM4OThkOWJhOTIxM2JjOTgxOGVmYWI5OTc4Y2FiIiwiaWF0IjoxNTQ0Njg5NzgyfQ.3d7_RmFwjOWBeDVdqPP7-mSnfMdsj1kpBl0N0F2HFdA")
+    xooaClient.setLoggerLevel("info")
+    async function fetchLastTransaction() {
+        const [error, pendingResponse, block] = await xooaClient.getCurrentBlock({})
             if (block) {
                 $('#json-container').jsonPresenter({
 
@@ -31,12 +31,12 @@
                 })
 
             }
-        })
+        
     }
 
-    function fetchBlockByNumber() {
+   async function fetchBlockByNumber() {
         let num = $("#by-number").val()
-        xooaClient.getBlockByNumber(num, {}, (error, pendingResponse, block) => {
+        const [error, pendingResponse, block] = await xooaClient.getBlockByNumber(num, {})
             if (block) {
                 $('#json-container').jsonPresenter({
 
@@ -45,7 +45,6 @@
                 })
 
             }
-        })
     }
 
     $('#current-block').click(function () {
