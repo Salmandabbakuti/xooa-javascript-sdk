@@ -4,10 +4,11 @@
   "description": "Xooa JavaScript SDK",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive",
-    "coverage": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --recursive",
+    "test": "./node_modules/mocha/bin/mocha --reporter mocha-junit-reporter --recursive",
+    "coverage": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --reporter mocha-junit-reporter --recursive",
     "report": "./node_modules/nyc/bin/nyc.js report --reporter=lcov",
-    "coverage-report": "./node_modules/nyc/bin/nyc.js --reporter=lcov ./node_modules/mocha/bin/mocha --recursive"
+    "coverage-report": "./node_modules/nyc/bin/nyc.js --reporter=lcov ./node_modules/mocha/bin/mocha --reporter mocha-junit-reporter --recursive",
+    "lint": "eslint src -f checkstyle"
   },
   "browser": {
     "fs": false
@@ -28,9 +29,17 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "eslint": "^4.18.1",
+    "eslint-config-recommended": "^4.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "expect.js": "^0.3.1",
     "gulp": "^3.9.1",
     "istanbul": "^0.4.5",
+    "mocha-junit-reporter": "^1.18.0",
     "nyc": "^13.1.0",
     "sinon": "1.17.3",
     "webpack-cli": "^3.1.2"
