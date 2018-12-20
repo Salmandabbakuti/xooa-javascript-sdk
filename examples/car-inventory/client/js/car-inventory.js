@@ -21,8 +21,8 @@
     var xooaClient = XooaClient()
     xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
 
-    function displayCars() {
-        xooaClient.query("getAllCars", {}, {"args": []}, (error, pendingResponse, identity) => {
+   async  function displayCars() {
+      const [error, pendingResponse, identity] = await  xooaClient.query("getAllCars", {}, {"args": []})
             if (identity && identity.payload) {
                 $("#dataTable tr").remove();
                 $('#dataTable > tbody:last-child').append(`<tr><th>Car Model</th><th>Available Count</th></tr>`)
@@ -31,7 +31,7 @@
 
                 })
             }
-        })
+        
     }
 
     $('#submit-modal').click(function () {

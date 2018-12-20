@@ -16,25 +16,35 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD.
-        define(['expect.js', '../../src/index'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
-        factory(require('expect.js'), require('../../src/index'));
+        factory(require('expect.js'), require('../../src/index'),require('await-timeout'));
     } else {
         // Browser globals (root is window)
         factory(root.expect, root.XooaJavascriptSdk);
     }
-}(this, function (expect, XooaJavascriptSdk) {
+}(this, function (expect, XooaJavascriptSdk,Timeout) {
     'use strict';
-
+    var idTemp;
+    var txId;
     var instance;
+    var newIdentity = {
+        "IdentityName": "string",
+        "Access": "r",
+        "Attrs": [
+            {
+                "name": "string",
+                "ecert": true,
+                "value": "string"
+            }
+        ],
+        "canManageIdentities": true
+    }
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
-
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+       // instance.setLoggerLevel("all")
     });
 
     var newIdentity = {
@@ -60,27 +70,11 @@
 
     describe('ResultApi', function () {
         describe('result', function () {
-            it('should call getResultForBlockByNumber successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForBlockByNumber(blockResultID)
-                data = data.payload;
-                expect(data.previous_hash).not.to.be("");
-                expect(data.data_hash).not.to.be("");
-                expect(data.numberOfTransactions).not.to.be(0);
-                expect(data.blockNumber).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
-            });
-            it('should call getResultForCurrentBlock successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForCurrentBlock(currentBlockResultID)
-                data = data.payload;
-                expect(data.previous_hash).not.to.be("");
-                expect(data.data_hash).not.to.be("");
-                expect(data.numberOfTransactions).not.to.be(0);
-                expect(data.blockNumber).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
-            })
-            it('should call getResultForIdentity successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForIdentity(identityResultID)
-                data = data.payload;
+            it('should call getResultForBlockByNumber successfully', async function()  {
+                this.timeout(9000)
+                var  [error, pendingResponse, data] = await instance.getBlockByNumberAsync("1", {});
+                [error, pendingResponse, data] = await instance.getResultForBlockByNumber(data.resultId)
+                data = data.result;
                 expect(data.previous_hash).not.to.be("");
                 expect(data.data_hash).not.to.be("");
                 expect(data.numberOfTransactions).not.to.be(0);
@@ -88,33 +82,60 @@
                 expect(pendingResponse).to.be(undefined);
             });
 
-            it('should call getResultForDeleteIdentity successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForDeleteIdentity(deleteIdentityResultID)
-                data = data.payload;
+            describe('getResultForIdentity', function () {
+            it('should call getResultForIdentity successfully', async function () {
+                this.timeout(6000)
+                var [error, pendingResponse, data] = await instance.enrollIdentityAsync({}, newIdentity);
+                 [error, pendingResponse, data] = await instance.getResultForIdentity(data.resultId)
+                data = data.result;
+                expect(data.createdAt).not.to.be("");
+                expect(typeof data.canManageIdentities).to.be("boolean");
+                expect(data.updatedAt).not.to.be("");
+                expect(data.Access).not.to.be("");
+                expect(data.Id).not.to.be("");
+                idTemp = data.Id;
+            });
+
+            it('should call getResultForDeleteIdentity successfully', async function() {
+                this.timeout(6000)
+                var [error, pendingResponse, data] = await instance.deleteIdentityAsync({}, idTemp);
+                [error, pendingResponse, data] = await instance.getResultForDeleteIdentity(data.resultId)
+                data = data.result;
                 expect(data.deleted).to.be(true);
                 expect(pendingResponse).to.be(undefined);
             });
+        });
+            
 
-            it('should call getResultForInvoke successfully', async () => {
-                let [error, pendingResponse, data] = await instance.getResultForInvoke(invokeResultID)
-                data = data.payload;
+            it('should call getResultForQuery successfully', async function()  {
+                this.timeout(8000)
+                var [error, pendingResponse, data] = await instance.queryAsync("get", {}, {args: ["abc"]});
+                await Timeout.set(2000);
+                [error, pendingResponse, data] = await instance.getResultForQuery(data.resultId)
+                data = data.result;
+                expect(data.payload).not.to.be(0);
+                expect(pendingResponse).to.be(undefined);
+            });
+         describe('getResultForTransaction', function () {
+            it('should call getResultForInvoke successfully', async function ()  {
+                this.timeout(6000)
+                var [error, pendingResponse, data] = await instance.invokeAsync("set", {}, {args: ["abc","123"]});
+                await Timeout.set(2000); 
+                [error, pendingResponse, data] = await instance.getResultForInvoke(data.resultId)
+                data = data.result;
                 expect(data.txId.length).to.be("6b53e116bc12c8d5ca3dfe41798d0ed85d7b7837bddf4fb0cb13eee99a4b6455".length);
                 expect(pendingResponse).to.be(undefined);
+                txId = data.txId
             });
-
-            it('should call getResultForQuery successfully', async () => {
-                let [error, pendingResponse, data] = instance.getResultForQuery(queryResultID)
-                data = data.payload;
-                expect(data.payload).not.to.be(0);
+            it('should call getResultForTransaction successfully', async function()  {
+                this.timeout(6000)
+                var  [error, pendingResponse, data] = await instance.getTransactionByTransactionIdAsync(txId, {});
+                [error, pendingResponse, data] = await instance.getResultForTransaction(data.resultId)
+                data = data.result;
+                expect(data.result).not.to.be(0);
                 expect(pendingResponse).to.be(undefined);
             });
-
-            it('should call getResultForTransaction successfully', async () => {
-                let [error, pendingResponse, data] = instance.getResultForTransaction(transactionResultID)
-                data = data.payload;
-                expect(data.payload).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
-            });
+        });
         });
     });
 

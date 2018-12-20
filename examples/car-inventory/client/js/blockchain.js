@@ -20,9 +20,9 @@
 
     var xooaClient = XooaClient()
     xooaClient.setApiToken("<YOUR_TOKEN_HERE>")
-
-    function fetchLastTransaction() {
-        xooaClient.getCurrentBlock({}, (error, pendingResponse, block) => {
+    xooaClient.setLoggerLevel("info")
+    async function fetchLastTransaction() {
+        const [error, pendingResponse, block] = await xooaClient.getCurrentBlock({})
             if (block) {
                 $('#json-container').jsonPresenter({
 
@@ -31,12 +31,12 @@
                 })
 
             }
-        })
+        
     }
 
-    function fetchBlockByNumber() {
+   async function fetchBlockByNumber() {
         let num = $("#by-number").val()
-        xooaClient.getBlockByNumber(num, {}, (error, pendingResponse, block) => {
+        const [error, pendingResponse, block] = await xooaClient.getBlockByNumber(num, {})
             if (block) {
                 $('#json-container').jsonPresenter({
 
@@ -45,7 +45,6 @@
                 })
 
             }
-        })
     }
 
     $('#current-block').click(function () {

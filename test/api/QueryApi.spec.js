@@ -16,10 +16,7 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD.
-        define(['expect.js', '../../src/index'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         factory(require('expect.js'), require('../../src/index'));
     } else {
@@ -33,24 +30,24 @@
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+    //    instance.setLoggerLevel("all")
 
     });
 
 
     describe('QueryApi', function () {
         describe('query', function () {
-            it('should call query successfully', async () => {
-                //uncomment below and update the code to test query
-                const [error, pendingResponse, data] = await instance.query("get", {}, {args: ["123"]})
+            it('should call query successfully', async function()  {
+                this.timeout(6000)
+                const [error, pendingResponse, data] = await instance.query("get", {}, {args: ["abc"]})
                 if (error) throw error;
-                expect(data.payload).not.to.be(0);
-                expect(pendingResponse).to.be(undefined);
+                expect(data).not.to.be(undefined);
 
             });
             it('should call query and revert timeout', async () => {
                 //uncomment below and update the code to test query
-                const [error, pendingResponse, data] = await instance.query("get", {timeout: 200}, {args: ["123"]})
+                const [error, pendingResponse, data] = await instance.query("get", {timeout: 200}, {args: ["abc"]})
                 if (error) throw error;
                 expect(data).to.be(undefined);
                 expect(pendingResponse.resultId).not.to.be("");
@@ -59,7 +56,7 @@
             });
             it('should call queryAsync successfully', async () => {
                 //uncomment below and update the code to test query
-                const [error, pendingResponse, data] = await instance.queryAsync("get", {}, {args: ["123"]})
+                const [error, pendingResponse, data] = await instance.queryAsync("get", {}, {args: ["abc"]})
                 if (error) throw error;
                 expect(pendingResponse).to.be(undefined);
                 expect(data.resultId).not.to.be("");

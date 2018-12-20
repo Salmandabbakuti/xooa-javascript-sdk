@@ -16,10 +16,7 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD.
-        define(['expect.js', '../../src/index'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         factory(require('expect.js'), require('../../src/index'));
     } else {
@@ -48,8 +45,8 @@
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
-
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+        // instance.setLoggerLevel("all")
     });
 
 
@@ -65,9 +62,6 @@
                 expect(data.Id).not.to.be("");
                 idTemp = data.Id;
             });
-        });
-
-        describe('getIdentities', function () {
             it('should call getIdentities successfully', async () => {
                 let [error, pendingResponse, data] = await instance.getIdentities()
                 if (error) throw error;
@@ -79,21 +73,21 @@
                 expect(data.Access).not.to.be("");
                 expect(data.Id).not.to.be("");
             });
-        });
-    });
-    describe('getIdentity', function () {
-        it('should call getIdentity successfully', async () => {
-            const [error, pendingResponse, data] = instance.getIdentity(idTemp)
-            if (error) throw error;
-            expect(data.createdAt).not.to.be("");
-            expect(typeof data.canManageIdentities).to.be("boolean");
-            expect(data.updatedAt).not.to.be("");
-            expect(data.Access).not.to.be("");
-            expect(data.Id).not.to.be("");
+            it('should call getIdentity successfully', async () => {
+                const [error, pendingResponse, data] = await  instance.getIdentity(idTemp)
+                if (error) throw error;
+    
+                expect(data.createdAt).not.to.be("");
+                expect(typeof data.canManageIdentities).to.be("boolean");
+                expect(data.updatedAt).not.to.be("");
+                expect(data.Access).not.to.be("");
+                expect(data.Id).not.to.be("");
+            });
         });
     });
     describe('enrollIdentity', function () {
-        it('should call enrollIdentity successfully', async () => {
+        it('should call enrollIdentity successfully', async function()  {
+            this.timeout(5000)
             const [error, pendingResponse, data] = await instance.enrollIdentity({}, newIdentity)
             if (error) throw error;
             expect(data.createdAt).not.to.be("");
@@ -110,16 +104,14 @@
             expect(pendingResponse.resultId).not.to.be("");
             expect(pendingResponse.resultURL).not.to.be("");
         });
-        it('should call enrollIdentity async successfully', async () => {
+        it('should call enrollIdentity async successfully', async function()  {
+            this.timeout(6000)
             const [error, pendingResponse, data] = await instance.enrollIdentityAsync({}, newIdentity)
             if (error) throw error;
             expect(pendingResponse).to.be(undefined);
             expect(data.resultId).not.to.be("");
             expect(data.resultURL).not.to.be("");
         });
-    })
-
-    describe('regenerateToken', function () {
         it('should call regenerateIdentityApiToken successfully', async () => {
             const [error, pendingResponse, data] = await instance.regenerateIdentityApiToken({}, idTemp)
             if (error) throw error;
@@ -136,56 +128,22 @@
             expect(pendingResponse.resultId).not.to.be("");
             expect(pendingResponse.resultURL).not.to.be("");
         });
-        it('should call regenerateIdentityApiTokenAsync successfully', async () => {
+        it('should call regenerateIdentityApiTokenAsync successfully', async function() {
+            this.timeout(6000)
             const [error, pendingResponse, data] = await instance.regenerateIdentityApiTokenAsync({}, idTemp)
             if (error) throw error;
             expect(pendingResponse).to.be(undefined);
             expect(data.resultId).not.to.be("");
             expect(data.resultURL).not.to.be("");
         });
-    });
-    describe('deleteIdentity', function () {
-        it('should call deleteIdentity successfully', async () => {
+        it('should call deleteIdentity successfully', async function(){
             const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
+            this.timeout(5000)
                 if (error) throw error;
                 expect(data.deleted).to.be(true);
                 expect(pendingResponse).to.be(undefined);
             });
-            it('should call deleteIdentity successfully with timeout', async () => {
-                this.timeout(4000);
-                let [error, pendingResponse, data] = await instance.enrollIdentity({}, newIdentity)
-                if (error) throw error;
-                expect(data.createdAt).not.to.be("");
-                expect(typeof data.canManageIdentities).to.be("boolean");
-                expect(data.updatedAt).not.to.be("");
-                expect(data.Access).not.to.be("");
-                expect(data.Id).not.to.be("");
-                idTemp = data.Id;
-                [error, pendingResponse, data] = await instance.deleteIdentity({timeout: 100}, idTemp)
-                if (error) throw error;
-                expect(data).to.be(undefined);
-                expect(pendingResponse.resultId).not.to.be("");
-                expect(pendingResponse.resultURL).not.to.be("");
-            });
-            it('should call deleteIdentity successfully with async', async () => {
-                this.timeout(4000);
-                let [error, pendingResponse, data] = await instance.enrollIdentity({}, newIdentity)
-                if (error) throw error;
-                expect(data.createdAt).not.to.be("");
-                expect(typeof data.canManageIdentities).to.be("boolean");
-                expect(data.updatedAt).not.to.be("");
-                expect(data.Access).not.to.be("");
-                expect(data.Id).not.to.be("");
-                idTemp = data.Id;
-                [error, pendingResponse, data] = await instance.deleteIdentityAsync({}, idTemp)
-                if (error) throw error;
-                expect(pendingResponse).to.be(undefined);
-                expect(data.resultId).not.to.be("");
-                expect(data.resultURL).not.to.be("");
-            });
-
-        })
-        ;
 
     })
+    
 }))

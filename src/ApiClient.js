@@ -16,20 +16,17 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['superagent', 'querystring', 'log4js'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
-        module.exports = factory(require('superagent'), require('querystring'), require("log4js"));
+        module.exports = factory(require('superagent'), require('querystring'));
     } else {
         // Browser globals (root is window)
         if (!root.XooaJavascriptSdk) {
             root.XooaJavascriptSdk = {};
         }
-        root.XooaJavascriptSdk.ApiClient = factory(root.superagent, root.querystring, root.log4js);
+        root.XooaJavascriptSdk.ApiClient = factory(root.superagent, root.querystring);
     }
-}(this, function (superagent, querystring, log4js) {
+}(this, function (superagent, querystring) {
     'use strict';
 
     /**
@@ -47,8 +44,7 @@
 
 
 
-
-    var exports = function () {
+    var exports = function (logger) {
 
 
         /**
@@ -57,11 +53,7 @@
          * @default https://api.xooa.com/api/v1/
          */
         this.basePath = 'https://api.xooa.com/api/v1/'.replace(/\/+$/, '');
-        /**
-         *Setting Logger
-         *t
-         * */
-        this.logger = log4js.getLogger();
+        
         /**
          * Token
          * */
@@ -73,6 +65,11 @@
          */
         this.defaultHeaders = {};
 
+
+        this.level = ""
+
+
+         
         /**
          * The default HTTP timeout for all API calls.
          * @type {Number}
@@ -114,15 +111,74 @@
      * @param level The actual parameter.
      * @returns {String} The string representation of <code>param</code>.
      */
-
-
-
     exports.prototype.setLoggerLevel = function (level) {
         if (level === undefined || level === null) {
-            throw new Error("Missing the required parameter 'level' when calling result");
+            throw new Error("Missing the required parameter 'level' when calling setLoggerLevel");
         }
-        this.logger.level = level;
+        this.level = level;
     }
+
+     /**
+         *Setting Logger
+         *t
+         * */
+       
+    exports.prototype.normalizeContent = function(content){
+        let finalContent = ""
+                for (let i=0; i < content.length; i++) {
+                    let arg = content[i];
+                    finalContent += finalContent == "" ?   JSON.stringify(arg) : "::" + JSON.stringify(arg);
+                }
+        return finalContent;        
+    }    
+
+    exports.prototype.warn =  function() {
+            switch(this.level){
+                case "warn":
+                case "all":
+                let finalContent = this.normalizeContent(arguments)
+                console.warn("[WARN] :: ",finalContent)
+            }
+        }
+        exports.prototype.info =  function() {
+            switch(this.level){
+                case "info":
+                case "all":
+                let finalContent = this.normalizeContent(arguments)
+                console.info("[INFO] :: ",finalContent)
+            }
+        }
+        exports.prototype.debug = function() {
+            switch(this.level){
+                case "debug":
+                case "all":
+                let finalContent = this.normalizeContent(arguments)
+                console.debug("[DEBUG] :: ",finalContent)
+            }
+        }
+        exports.prototype.log = function() {
+            switch(this.level){
+                case "log":
+                case "all":
+                let finalContent = this.normalizeContent(arguments)
+                console.log("[LOG] :: ",finalContent)
+            }
+        }
+        exports.prototype.error = function() {
+            switch(this.level){
+                case "error":
+                case "all":
+                let finalContent = this.normalizeContent(arguments)
+                console.error("[ERROR] :: ",finalContent)
+            }
+        }
+
+    // exports.prototype.setLoggerLevel = function (level) {
+    //     if (level === undefined || level === null) {
+    //         throw new Error("Missing the required parameter 'level' when calling result");
+    //     }
+    //     this.logger.level = level;
+    // }
 
 
     exports.prototype.setApiToken = function (token) {
@@ -205,37 +261,6 @@
         return contentTypes[0];
     };
 
-    /**
-     * Checks whether the given parameter value represents file-like content.
-     * @param param The parameter to check.
-     * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
-     */
-    exports.prototype.isFileParam = function (param) {
-        // fs.ReadStream in Node.js and Electron (but not in runtime like browserify)
-        if (typeof require === 'function') {
-            var fs;
-            try {
-                fs = require('fs');
-            } catch (err) {
-            }
-            if (fs && fs.ReadStream && param instanceof fs.ReadStream) {
-                return true;
-            }
-        }
-        // Buffer in Node.js
-        if (typeof Buffer === 'function' && param instanceof Buffer) {
-            return true;
-        }
-        // Blob in browser
-        if (typeof Blob === 'function' && param instanceof Blob) {
-            return true;
-        }
-        // File in browser (it seems File object is also instance of Blob, but keep this for safe)
-        if (typeof File === 'function' && param instanceof File) {
-            return true;
-        }
-        return false;
-    };
 
     /**
      * Normalizes parameter values:
@@ -252,47 +277,12 @@
         for (var key in params) {
             if (params.hasOwnProperty(key) && params[key] != undefined && params[key] != null) {
                 var value = params[key];
-                if (this.isFileParam(value) || Array.isArray(value)) {
-                    newParams[key] = value;
-                } else {
+                
                     newParams[key] = this.paramToString(value);
-                }
+            
             }
         }
         return newParams;
-    };
-
-    /**
-     * Enumeration of collection format separator strategies.
-     * @enum {String}
-     * @readonly
-     */
-    exports.CollectionFormatEnum = {
-        /**
-         * Comma-separated values. Value: <code>csv</code>
-         * @const
-         */
-        CSV: ',',
-        /**
-         * Space-separated values. Value: <code>ssv</code>
-         * @const
-         */
-        SSV: ' ',
-        /**
-         * Tab-separated values. Value: <code>tsv</code>
-         * @const
-         */
-        TSV: '\t',
-        /**
-         * Pipe(|)-separated values. Value: <code>pipes</code>
-         * @const
-         */
-        PIPES: '|',
-        /**
-         * Native array. Value: <code>multi</code>
-         * @const
-         */
-        MULTI: 'multi'
     };
 
     /**
@@ -332,28 +322,6 @@
         request.set({'Authorization': 'Bearer ' + this.token});
     };
 
-    /**
-     * Deserializes an HTTP response body into a value of the specified type.
-     * @param {Object} response A SuperAgent response object.
-     * @param {(String|Array.<String>|Object.<String, Object>|Function)} returnType The type to return. Pass a string for simple types
-     * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
-     * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
-     * all properties on <code>data<code> will be converted to this type.
-     * @returns A value of the specified type.
-     */
-    exports.prototype.deserialize = function deserialize(response, returnType) {
-        if (response == null || returnType == null || response.status == 204) {
-            return null;
-        }
-        // Rely on SuperAgent for parsing response body.
-        // See http://visionmedia.github.io/superagent/#parsing-response-bodies
-        var data = response.body;
-        if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
-            // SuperAgent does not always produce a body; use the unparsed response as a fallback
-            data = response.text;
-        }
-        return exports.convertToType(data, returnType);
-    };
 
     /**
      * Callback function to receive the result of the operation.
@@ -387,7 +355,7 @@
                                                        returnType, async, callback) {
 
 
-        this.logger.info({
+        this.info({
             path: path,
             httpMethod: httpMethod,
             pathParams: pathParams,
@@ -414,18 +382,10 @@
         for (var key in collectionQueryParams) {
             if (collectionQueryParams.hasOwnProperty(key)) {
                 var param = collectionQueryParams[key];
-                if (param.collectionFormat === 'csv') {
-                    // SuperAgent normally percent-encodes all reserved characters in a query parameter. However,
-                    // commas are used as delimiters for the 'csv' collectionFormat so they must not be encoded. We
-                    // must therefore construct and encode 'csv' collection query parameters manually.
-                    if (param.value != null) {
-                        var value = param.value.map(this.paramToString).map(encodeURIComponent).join(',');
-                        request.query(encodeURIComponent(key) + "=" + value);
-                    }
-                } else {
+                
                     // All other collection query parameters should be treated as ordinary query parameters.
                     queryParams[key] = this.buildCollectionParam(param.value, param.collectionFormat);
-                }
+                
             }
         }
 
@@ -445,7 +405,7 @@
         }
 
 
-        this.logger.info({timeout: this.timeout})
+        this.info({timeout: this.timeout})
         // set request timeout
         request.timeout(this.timeout);
 
@@ -467,35 +427,19 @@
             request.responseType('string');
         }
 
-        // Attach previously saved cookies, if enabled
-        if (this.enableCookies) {
-            if (typeof window === 'undefined') {
-                this.agent.attachCookies(request);
-            }
-            else {
-                request.withCredentials();
-            }
-        }
-
         return new Promise((resolve, reject) => {
             request.end(function (error, response) {
                     var data = null;
                     if (!error) {
                         try {
-                            // data = _this.deserialize(response, returnType);
-                            // if (_this.enableCookies && typeof window === 'undefined') {
-                            //     _this.agent.saveCookies(response);
-                            // }
-
-
                             if (response.statusCode === 200 || async) {
-                                _this.logger.info({statusCode: 200, body: response.body})
+                                _this.info({statusCode: 200, body: response.body})
                                 resolve([error, undefined, response.body]);
                             } else if (response.statusCode === 202) {
-                                _this.logger.warn({statusCode: 202, body: response.body})
+                                _this.warn({statusCode: 202, body: response.body})
                                 resolve([error, response.body, undefined]);
                             } else if (response.statusCode > 300) {
-                                _this.logger.error(statusCode)
+                                _this.error(statusCode)
                                 resolve([error, undefined, undefined]);
                             }
                         } catch (err) {
@@ -505,7 +449,7 @@
                         }
 
                     } else {
-                        _this.logger.error(error)
+                        _this.error(error)
                         resolve(error, undefined, undefined);
                     }
                 }
@@ -531,80 +475,80 @@
      * all properties on <code>data<code> will be converted to this type.
      * @returns An instance of the specified type or null or undefined if data is null or undefined.
      */
-    exports.convertToType = function (data, type) {
-        if (data === null || data === undefined)
-            return data
+    // exports.convertToType = function (data, type) {
+    //     if (data === null || data === undefined)
+    //         return data
 
-        switch (type) {
-            case 'Boolean':
-                return Boolean(data);
-            case 'Integer':
-                return parseInt(data, 10);
-            case 'Number':
-                return parseFloat(data);
-            case 'String':
-                return String(data);
-            case 'Date':
-                return this.parseDate(String(data));
-            case 'Blob':
-                return data;
-            default:
-                if (type === Object) {
-                    // generic object, return directly
-                    return data;
-                } else if (typeof type === 'function') {
-                    // for model type like: User
-                    return type.constructFromObject(data);
-                } else if (Array.isArray(type)) {
-                    // for array type like: ['String']
-                    var itemType = type[0];
-                    return data.map(function (item) {
-                        return exports.convertToType(item, itemType);
-                    });
-                } else if (typeof type === 'object') {
-                    // for plain object type like: {'String': 'Integer'}
-                    var keyType, valueType;
-                    for (var k in type) {
-                        if (type.hasOwnProperty(k)) {
-                            keyType = k;
-                            valueType = type[k];
-                            break;
-                        }
-                    }
-                    var result = {};
-                    for (var k in data) {
-                        if (data.hasOwnProperty(k)) {
-                            var key = exports.convertToType(k, keyType);
-                            var value = exports.convertToType(data[k], valueType);
-                            result[key] = value;
-                        }
-                    }
-                    return result;
-                } else {
-                    // for unknown type, return the data directly
-                    return data;
-                }
-        }
-    };
+    //     switch (type) {
+    //         case 'Boolean':
+    //             return Boolean(data);
+    //         case 'Integer':
+    //             return parseInt(data, 10);
+    //         case 'Number':
+    //             return parseFloat(data);
+    //         case 'String':
+    //             return String(data);
+    //         case 'Date':
+    //             return this.parseDate(String(data));
+    //         case 'Blob':
+    //             return data;
+    //         default:
+    //             if (type === Object) {
+    //                 // generic object, return directly
+    //                 return data;
+    //             } else if (typeof type === 'function') {
+    //                 // for model type like: User
+    //                 return type.constructFromObject(data);
+    //             } else if (Array.isArray(type)) {
+    //                 // for array type like: ['String']
+    //                 var itemType = type[0];
+    //                 return data.map(function (item) {
+    //                     return exports.convertToType(item, itemType);
+    //                 });
+    //             } else if (typeof type === 'object') {
+    //                 // for plain object type like: {'String': 'Integer'}
+    //                 var keyType, valueType;
+    //                 for (var k in type) {
+    //                     if (type.hasOwnProperty(k)) {
+    //                         keyType = k;
+    //                         valueType = type[k];
+    //                         break;
+    //                     }
+    //                 }
+    //                 var result = {};
+    //                 for (var k in data) {
+    //                     if (data.hasOwnProperty(k)) {
+    //                         var key = exports.convertToType(k, keyType);
+    //                         var value = exports.convertToType(data[k], valueType);
+    //                         result[key] = value;
+    //                     }
+    //                 }
+    //                 return result;
+    //             } else {
+    //                 // for unknown type, return the data directly
+    //                 return data;
+    //             }
+    //     }
+    // };
 
     /**
      * Constructs a new map or array model from REST data.
      * @param data {Object|Array} The REST data.
      * @param obj {Object|Array} The target object or array.
      */
-    exports.constructFromObject = function (data, obj, itemType) {
-        if (Array.isArray(data)) {
-            for (var i = 0; i < data.length; i++) {
-                if (data.hasOwnProperty(i))
-                    obj[i] = exports.convertToType(data[i], itemType);
-            }
-        } else {
-            for (var k in data) {
-                if (data.hasOwnProperty(k))
-                    obj[k] = exports.convertToType(data[k], itemType);
-            }
-        }
-    };
+    // exports.constructFromObject = function (data, obj, itemType) {
+    //     if (Array.isArray(data)) {
+    //         for (var i = 0; i < data.length; i++) {
+    //             if (data.hasOwnProperty(i))
+    //                 obj[i] = exports.convertToType(data[i], itemType);
+    //         }
+    //     } else {
+    //         for (var k in data) {
+    //             if (data.hasOwnProperty(k))
+    //                 obj[k] = exports.convertToType(data[k], itemType);
+    //         }
+    //     }
+    // };
 
     /**
      * The default API client implementation.
