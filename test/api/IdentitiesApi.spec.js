@@ -138,6 +138,16 @@
         });
         it('should call deleteIdentity successfully', async function(){
             this.timeout(5000)
+            const [error, pendingResponse, data] = await instance.enrollIdentity({}, newIdentity)
+            if (error) throw error;
+            expect(data.createdAt).not.to.be("");
+            expect(typeof data.canManageIdentities).to.be("boolean");
+            expect(data.updatedAt).not.to.be("");
+            expect(data.Access).not.to.be("");
+            expect(data.Id).not.to.be("");
+            idTemp = data.Id;
+
+            
             const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
                 if (error) throw error;
                 expect(data.deleted).to.be(true);
