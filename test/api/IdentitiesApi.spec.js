@@ -137,12 +137,23 @@
             expect(data.resultURL).not.to.be("");
         });
         it('should call deleteIdentity successfully', async function(){
-            const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
             this.timeout(5000)
-                if (error) throw error;
-                expect(data.deleted).to.be(true);
-                expect(pendingResponse).to.be(undefined);
-            });
+
+            const [error, pendingResponse, data] = await instance.enrollIdentity({}, newIdentity)
+            if (error) throw error;
+            expect(data.createdAt).not.to.be("");
+            expect(typeof data.canManageIdentities).to.be("boolean");
+            expect(data.updatedAt).not.to.be("");
+            expect(data.Access).not.to.be("");
+            expect(data.Id).not.to.be("");
+            idTemp = data.Id;
+
+            
+            const [error_identity, pendingResponseIdentity, dataIdentity] = await instance.deleteIdentity({}, idTemp)
+                if (error_identity) throw error_identity;
+                expect(dataIdentity.deleted).to.be(true);
+                expect(pendingResponseIdentity).to.be(undefined);
+        });
 
     })
     

@@ -64,7 +64,7 @@
 
         });
         describe('Getting Transaction Data by TxId',async  () =>  {
-            it('should call getTransactionByTransactionId successfully', async () => {
+            it('should call getTransactionByTransactionId successfully', async function() {
                 this.timeout(10000)
                 const [error, pendingResponse, data] = await instance.getTransactionByTransactionId(txId, {});
                 if (error) throw error;
