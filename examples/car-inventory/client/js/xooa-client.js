@@ -8101,10 +8101,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['superagent', 'querystring', './api/Logger'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('superagent'), require('querystring'), require("./api/Logger.js"));
     } else {
@@ -8803,10 +8800,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('../ApiClient'));
     } else {
@@ -9014,10 +9008,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['socket.io-client', 'ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('socket.io-client'), require('../ApiClient'));
     } else {
@@ -9117,10 +9108,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('../ApiClient'));
     } else {
@@ -9428,10 +9416,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('../ApiClient'));
     } else {
@@ -9542,10 +9527,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define([], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory();
     } else {
@@ -9681,10 +9663,7 @@ module.exports = yeast;
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('../ApiClient'));
     } else {
@@ -9793,10 +9772,7 @@ module.exports = yeast;
  */
 
 (function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
-  } else if (typeof module === 'object' && module.exports) {
+  if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
     module.exports = factory(require('../ApiClient'));
   } else {
@@ -9897,10 +9873,7 @@ module.exports = yeast;
  */
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient', 'api/BlockchainApi', 'api/IdentitiesApi', 'api/InvokeApi', 'api/QueryApi', 'api/ResultApi', './api/EventClient', './api/Logger'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('./ApiClient'), require('./api/BlockchainApi'), require('./api/IdentitiesApi'), require('./api/InvokeApi'), require('./api/QueryApi'), require('./api/ResultApi'), require('./api/EventClient'), require('./api/Logger'));
     }

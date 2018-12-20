@@ -4,15 +4,35 @@ The official Xooa SDK for Javascript, for browsers and mobile devices, or Node.j
 
 Xooa (pronounced ZUU-ah) is dedicated to making blockchain easy. Focus on business problems, not blockchain problems.
 
-## Getting Started
+## Installing
+
+###  Nodejs
+Simply type the command into the terminal window. 
 
 ```bash
-npm install xooa-sdk --save
+npm install xooa-sdk
 ```
 
 ```js
 var xooaClient = require("xooa-sdk");
 ```
+
+### In React Native 
+
+Install the SDK in the Project first using npm.
+
+```bash
+npm install xooa-sdk
+```
+
+```js
+import * as XooaClient from "xooa-sdk"
+```
+
+```js
+let xooaClient = XooaClient();
+```
+
 
 ## Usage of Functions
 

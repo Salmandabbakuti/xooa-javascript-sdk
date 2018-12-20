@@ -16,10 +16,7 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('../ApiClient'));
     } else {
@@ -101,7 +98,7 @@
          * @param {module:api/IdentitiesApi~deleteIdentityCallback} callback The callback function, accepting three arguments: error, data, response
          */
         this.deleteIdentity = async function (opts, identityId, callback) {
-            apiClient.logger.debug({"fn": "deleteIdentity", opts: opts, identityId: identityId})
+            this.apiClient.debug({"fn": "deleteIdentity", opts: opts, identityId: identityId})
             opts = opts || {};
             var postBody = null;
 
@@ -151,7 +148,7 @@
          * @param {module:api/IdentitiesApi~enrollmentCallback} callback The callback function, accepting three arguments: error, data, response
          */
         this.enrollIdentity = async function (opts, identity, callback) {
-            apiClient.logger.debug({"fn": "enrollIdentity", opts: opts, identity: identity})
+            this.apiClient.debug({"fn": "enrollIdentity", opts: opts, identity: identity})
 
             opts = opts || {};
 
@@ -194,7 +191,7 @@
          * @param {module:api/IdentitiesApi~identitiesGetAllIdentitiesCallback} callback The callback function, accepting three arguments: error, data, response
          */
         this.getIdentities = async function (callback) {
-            apiClient.logger.debug({"fn": "getIdentities"})
+            this.apiClient.debug({"fn": "getIdentities"})
             var postBody = null;
 
 
@@ -230,7 +227,7 @@
          * @param {module:api/IdentitiesApi~identityInformationCallback} callback The callback function, accepting three arguments: error, data, response
          */
         this.getIdentity = async function (identityId, callback) {
-            apiClient.logger.debug({"fn": "getIdentity", identityId: identityId})
+            this.apiClient.debug({"fn": "getIdentity", identityId: identityId})
             var postBody = null;
 
             // verify the required parameter 'id' is set
@@ -274,7 +271,7 @@
          * @param {module:api/IdentitiesApi~regenerateTokenCallback} callback The callback function, accepting three arguments: error, data, response
          */
         this.regenerateIdentityApiToken = async function (opts, identityId, callback) {
-            apiClient.logger.debug({"fn": "regenerateIdentityApiToken", opts: opts, identityId: identityId})
+            this.apiClient.debug({"fn": "regenerateIdentityApiToken", opts: opts, identityId: identityId})
             var postBody = null;
 
             // verify the required parameter 'id' is set

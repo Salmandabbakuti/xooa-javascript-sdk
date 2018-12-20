@@ -16,10 +16,7 @@
  */
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['ApiClient', 'api/BlockchainApi', 'api/IdentitiesApi', 'api/InvokeApi', 'api/QueryApi', 'api/ResultApi', './api/EventClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('./ApiClient'), require('./api/BlockchainApi'), require('./api/IdentitiesApi'), require('./api/InvokeApi'), require('./api/QueryApi'), require('./api/ResultApi'), require('./api/EventClient'));
     }
@@ -29,9 +26,15 @@
     }
 }(function (ApiClient, BlockchainApi, IdentitiesApi, InvokeApi, QueryApi, ResultApi, EventClient) {
     'use strict';
+         
+
+        /**
+         * The EventClient service constructor.
+         * @property {module:api/EventClient}
+         */
 
 
-    ApiClient = new ApiClient(),
+        ApiClient = new ApiClient(),
 
         /**
          * The EventClient service constructor.
@@ -337,8 +340,8 @@
      * @param {String} resultId Returned in previous Query/Invoke/Participant Operation
      * @param {module:api/ResultApi~resultCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    async function getResultForCurrentBlock(resultId, callback) {
-        return await ResultApi.result(resultId, callback)
+    async function getResultForCurrentBlock(resultId) {
+        return await ResultApi.result(resultId)
     }
 
     /**
@@ -362,11 +365,22 @@
     }
 
     /**
+     * Fetch result of previously submitted Delete Identity
+     * API Returns result of previously submitted transaction
+     * @param {String} resultId Returned in previous Query/Invoke/Participant Operation
+     * @param {module:api/ResultApi~resultCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    async function getResultForTransaction(resultId, callback) {
+        return await ResultApi.result(resultId, callback)
+    }
+
+    /**
      * Set logger level
      * Function to set log level return nothing
      * @param {String} level "log level"
      */
     function setLoggerLevel(level) {
+        console.log(level)
         ApiClient.setLoggerLevel(level)
     }
 
@@ -416,6 +430,7 @@
             getBlockByNumberAsync: getBlockByNumberAsync,
             getTransactionByTransactionId: getTransactionByTransactionId,
             getTransactionByTransactionIdAsync: getTransactionByTransactionIdAsync,
+            getResultForTransaction: getResultForTransaction,
             getCurrentBlock: getCurrentBlock,
             getCurrentBlockAsync: getCurrentBlockAsync,
             query: query,

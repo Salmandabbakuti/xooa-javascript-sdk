@@ -16,10 +16,7 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['socket.io-client', 'ApiClient'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         module.exports = factory(require('socket.io-client'), require('../ApiClient'));
     } else {
@@ -50,44 +47,45 @@
      * default to {@link module:ApiClient#instance} if unspecified.
      */
 
-    var exports = function () {
+    var exports = function (apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
         this.subscribeAllEvents = function (callback) {
-            apiClient.logger.debug({"fn": "subscribeAllEvents"})
-            this.connectServer(callback);
+            this.apiClient.debug(apiClient.token)
+            this.apiClient.debug({"fn": "subscribeAllEvents"})
+            this.connectServer(apiClient.token,callback);
         }
 
-
         this.unsubscribe = function (callback) {
-            apiClient.logger.debug({"fn": "unsubscribe"})
+            apiClient.debug({"fn": "unsubscribe"})
             this.unsubscribeE( callback);
         }
 
     };
 
-    exports.prototype.connectServer = function (callback) {
+    exports.prototype.connectServer = function (token,callback) {
         const socket = io("https://api.xooa.com", {
             path: "/subscribe"
         });
         socketG = socket;
+        apiClient.debug(apiClient.token)
         socket.on("connect", function () {
             //Authenticate Using Identity Token
             socket.emit("authenticate", {
-                token: apiClient.token
+                token: token
             });
         });
 
-        socket
-            .on("authenticated", function () {
-                //console.log("Authenticated");
+        socket.on("authenticated", function () {
+;               
             })
             .on("event", (data) => {
                 callback(data)
             })
             .on("error", err => {
-                console.log("Error", err);
+                console.error("Error", err);
             })
             .on("unauthorized", function () {
-                console.log("Unauthorized")
+                console.warn("Unauthorized")
                 socket.disconnect();
             });
 

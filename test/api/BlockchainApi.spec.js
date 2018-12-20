@@ -16,10 +16,7 @@
  */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD.
-        define(['expect.js', '../../src/index'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+    if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
         factory(require('expect.js'), require('../../src/index'));
     } else {
@@ -33,13 +30,13 @@
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI")
-        // instance.setLoggerLevel("all")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+        //instance.setLoggerLevel("all")
     });
 
     describe('BlockChain test cases', function () {
         describe('Getting Block Data by Number', function () {
-            it('should call getBlockByNumber successfully', async () => {
+            it('should call getBlockByNumber successfully', async function ()  {
                 this.timeout(10000)
                 const [error, pendingResponse, data] = await instance.getBlockByNumber("1", {});
                 if (error) throw error;
@@ -50,9 +47,8 @@
                 expect(pendingResponse).to.be(undefined)
             });
 
-            it('should call getBlockByNumberAsync successfully', async () => {
-                //uncomment below and update the code to test blockData
-
+            it('should call getBlockByNumberAsync successfully', async function()  {
+                this.timeout(4000)
                 const [error, pendingResponse, data] = await instance.getBlockByNumberAsync("1", {});
                 if (error) throw error;
                 expect(data.resultId).not.to.be("");
@@ -61,7 +57,7 @@
 
             });
             it('should call getBlockByNumber and response pending', async () => {
-                const [error, pendingResponse, data] = await instance.getBlockByNumber("1", {timeout: 200})
+                const [error, pendingResponse, data] = await instance.getBlockByNumber("1", {timeout: 100})
                 if (error) throw error;
                 expect(pendingResponse.resultId).not.to.be("");
                 expect(pendingResponse.resultURL).not.to.be("");
@@ -69,37 +65,7 @@
             });
 
         });
-        describe('Getting Transaction Data by TxId', function () {
-            it('should call getTransactionByTransactionId successfully', async () => {
-                this.timeout(10000)
-                const [error, pendingResponse, data] = await instance.getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", {});
-                if (error) throw error;
-                expect(data.previous_hash).not.to.be("");
-                expect(data.data_hash).not.to.be("");
-                expect(data.numberOfTransactions).not.to.be(0);
-                expect(data.blockNumber).not.to.be(0);
-                expect(pendingResponse).to.be(undefined)
-            });
-
-            it('should call getTransactionByTransactionIdAsync successfully', async () => {
-                //uncomment below and update the code to test blockData
-
-                const [error, pendingResponse, data] = await instance.getTransactionByTransactionIdAsync("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", {});
-                if (error) throw error;
-                expect(data.resultId).not.to.be("");
-                expect(data.resultURL).not.to.be("");
-                expect(pendingResponse).to.be(undefined);
-
-            });
-            it('should call getTransactionByTransactionId and response pending', async () => {
-                const [error, pendingResponse, data] = await instance.getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", { timeout: 200 })
-                if (error) throw error;
-                expect(pendingResponse.resultId).not.to.be("");
-                expect(pendingResponse.resultURL).not.to.be("");
-                expect(data).to.be(undefined);
-            });
-
-        });
+        
         describe('Getting Current Block Cases', function () {
             it('should call getCurrentBlock successfully', async () => {
                 const [error, pendingResponse, data] = await instance.getCurrentBlock({})
@@ -113,14 +79,15 @@
 
 
             it('should call getCurrentBlock with timeout', async () => {
-                const [error, pendingResponse, data] = await instance.getCurrentBlock({timeout: 200})
+                const [error, pendingResponse, data] = await instance.getCurrentBlock({timeout: 100})
                 if (error) throw error;
                 expect(pendingResponse.resultId).not.to.be("");
                 expect(pendingResponse.resultURL).not.to.be("");
                 expect(data).to.be(undefined);
 
             });
-            it('should call getCurrentBlockAsync', async () => {
+            it('should call getCurrentBlockAsync', async function() {
+                this.timeout(6000)
                 const [error, pendingResponse, data] = await instance.getCurrentBlockAsync({})
                 if (error) throw error;
                 expect(data.resultId).not.to.be("");
