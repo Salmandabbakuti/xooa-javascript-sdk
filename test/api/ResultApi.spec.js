@@ -73,6 +73,7 @@
             it('should call getResultForBlockByNumber successfully', async function()  {
                 this.timeout(9000)
                 var  [error, pendingResponse, data] = await instance.getBlockByNumberAsync("1", {});
+                await Timeout.set(3000);
                 [error, pendingResponse, data] = await instance.getResultForBlockByNumber(data.resultId)
                 data = data.result;
                 expect(data.previous_hash).not.to.be("");
@@ -84,8 +85,9 @@
 
             describe('getResultForIdentity', function () {
             it('should call getResultForIdentity successfully', async function () {
-                this.timeout(6000)
+                this.timeout(9000)
                 var [error, pendingResponse, data] = await instance.enrollIdentityAsync({}, newIdentity);
+                await Timeout.set(3000);
                  [error, pendingResponse, data] = await instance.getResultForIdentity(data.resultId)
                 data = data.result;
                 expect(data.createdAt).not.to.be("");
@@ -97,8 +99,9 @@
             });
 
             it('should call getResultForDeleteIdentity successfully', async function() {
-                this.timeout(6000)
+                this.timeout(9000)
                 var [error, pendingResponse, data] = await instance.deleteIdentityAsync({}, idTemp);
+                await Timeout.set(3000);
                 [error, pendingResponse, data] = await instance.getResultForDeleteIdentity(data.resultId)
                 data = data.result;
                 expect(data.deleted).to.be(true);
@@ -108,9 +111,9 @@
             
 
             it('should call getResultForQuery successfully', async function()  {
-                this.timeout(8000)
+                this.timeout(9000)
                 var [error, pendingResponse, data] = await instance.queryAsync("get", {}, {args: ["abc"]});
-                await Timeout.set(2000);
+                await Timeout.set(3000);
                 [error, pendingResponse, data] = await instance.getResultForQuery(data.resultId)
                 data = data.result;
                 expect(data.payload).not.to.be(0);
@@ -118,9 +121,9 @@
             });
          describe('getResultForTransaction', function () {
             it('should call getResultForInvoke successfully', async function ()  {
-                this.timeout(6000)
+                this.timeout(9000)
                 var [error, pendingResponse, data] = await instance.invokeAsync("set", {}, {args: ["abc","123"]});
-                await Timeout.set(2000); 
+                await Timeout.set(3000); 
                 [error, pendingResponse, data] = await instance.getResultForInvoke(data.resultId)
                 data = data.result;
                 expect(data.txId.length).to.be("6b53e116bc12c8d5ca3dfe41798d0ed85d7b7837bddf4fb0cb13eee99a4b6455".length);
@@ -128,8 +131,9 @@
                 txId = data.txId
             });
             it('should call getResultForTransaction successfully', async function()  {
-                this.timeout(6000)
+                this.timeout(9000)
                 var  [error, pendingResponse, data] = await instance.getTransactionByTransactionIdAsync(txId, {});
+                await Timeout.set(3000); 
                 [error, pendingResponse, data] = await instance.getResultForTransaction(data.resultId)
                 data = data.result;
                 expect(data.result).not.to.be(0);

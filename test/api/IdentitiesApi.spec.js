@@ -137,12 +137,12 @@
             expect(data.resultURL).not.to.be("");
         });
         it('should call deleteIdentity successfully', async function(){
-            const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
             this.timeout(5000)
+            const [error, pendingResponse, data] = await instance.deleteIdentity({}, idTemp)
                 if (error) throw error;
                 expect(data.deleted).to.be(true);
                 expect(pendingResponse).to.be(undefined);
-            });
+        });
 
     })
     
