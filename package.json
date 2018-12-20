@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --recursive",
-    "coverage": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --recursive"
+    "coverage": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --recursive",
+    "report": "./node_modules/nyc/bin/nyc.js report --reporter=lcov",
+    "coverage-report": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --recursive && ./node_modules/nyc/bin/nyc.js report --reporter=lcov"
   },
   "browser": {
     "fs": false
