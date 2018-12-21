@@ -62,6 +62,7 @@
          * @param {String} opts.async Call this request asynchronously without waiting for response
          * @param {String} opts.timeout Request timeout in millisecond
          * @param {module:api/BlockchainApi~blockDataCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.getBlockByNumber = async function (blockNumber, opts) {
 			apiClient.debug({
@@ -119,6 +120,7 @@
          * @param {String} opts.async Call this request asynchronously without waiting for response
          * @param {String} opts.timeout Request timeout in millisecond
          * @param {module:api/BlockchainApi~blockHeightCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.getCurrentBlock = async function (opts, callback) {
 			opts = opts || {}
@@ -164,6 +166,7 @@
          * @param {String} opts.async Call this request asynchronously without waiting for response
          * @param {String} opts.timeout Request timeout in millisecond
          * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.getTransactionByTransactionId = async function (txId, opts) {
 			this.apiClient.debug({

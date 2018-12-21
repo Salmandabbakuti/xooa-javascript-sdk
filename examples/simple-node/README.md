@@ -1,28 +1,12 @@
-# Car inventory 
+# Simple Node
 
-This example is to demonstrate the usage of the functionality available in the Xooa Javascript SDK.
+This example is to demonstrate the basic usage of the functionality available in the Xooa Javascript SDK.
 
 ## Directory:
 
 ``client`` : this directory contains the code for the example.
 
 ``smartcontract`` : this directory contains the smart contract used for the example. 
-
-## Installation
-
-```bash
-npm install -g gulp-cli
-```
-
-```bash
-npm install
-```
-
-## Running 
-
-```bash
-gulp serve
-```
 
 
 **Project documentation:** <https://docs.xooa.com>

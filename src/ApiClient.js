@@ -18,15 +18,15 @@
 (function (root, factory) {
 	if (typeof module === 'object' && module.exports)
 	// CommonJS-like environments that support module.exports, like Node.
-		module.exports = factory(require('superagent'), require('querystring'))
+		module.exports = factory(require('superagent'))
 	else {
 		// Browser globals (root is window)
 		if (!root.XooaJavascriptSdk)
 			root.XooaJavascriptSdk = {}
 
-		root.XooaJavascriptSdk.ApiClient = factory(root.superagent, root.querystring)
+		root.XooaJavascriptSdk.ApiClient = factory(root.superagent)
 	}
-}(this, (superagent, querystring) => {
+}(this, superagent => {
 	'use strict'
 
 	/**
@@ -44,7 +44,7 @@
 
 
 
-	const exports = function (logger) {
+	const exports = function () {
 
 
 		/**
@@ -127,49 +127,54 @@
 		let finalContent = ''
 		for (let i = 0; i < content.length; i++) {
 			const arg = content[i]
-			finalContent += finalContent == '' ? JSON.stringify(arg) : '::' + JSON.stringify(arg)
+			finalContent += finalContent === '' ? JSON.stringify(arg) : '::' + JSON.stringify(arg)
 		}
 		return finalContent
 	}
 
-	exports.prototype.warn = function () {
+	exports.prototype.warn = function (...args) {
 		switch (this.level) {
 			case 'warn':
-			case 'all':
-				const finalContent = this.normalizeContent(arguments)
-				console.warn('[WARN] :: ', finalContent)
+			case 'all': {
+				const finalContent = this.normalizeContent(args)
+				console.warn('[WARN] :: ', finalContent) // eslint-disable-line 
+			}
 		}
 	}
-	exports.prototype.info = function () {
+	exports.prototype.info = function (...args) {
 		switch (this.level) {
 			case 'info':
-			case 'all':
-				const finalContent = this.normalizeContent(arguments)
-				console.info('[INFO] :: ', finalContent)
+			case 'all': {
+				const finalContent = this.normalizeContent(args)
+				console.info('[INFO] :: ', finalContent) // eslint-disable-line 
+			}
 		}
 	}
-	exports.prototype.debug = function () {
+	exports.prototype.debug = function (...args) {
 		switch (this.level) {
 			case 'debug':
-			case 'all':
-				const finalContent = this.normalizeContent(arguments)
-				console.debug('[DEBUG] :: ', finalContent)
+			case 'all': {
+				const finalContent = this.normalizeContent(args)
+				console.debug('[DEBUG] :: ', finalContent) // eslint-disable-line 
+			}
 		}
 	}
-	exports.prototype.log = function () {
+	exports.prototype.log = function (...args) {
 		switch (this.level) {
 			case 'log':
-			case 'all':
-				const finalContent = this.normalizeContent(arguments)
-				console.log('[LOG] :: ', finalContent)
+			case 'all': {
+				const finalContent = this.normalizeContent(args)
+				console.log('[LOG] :: ', finalContent) // eslint-disable-line 
+			}
 		}
 	}
-	exports.prototype.error = function () {
+	exports.prototype.error = function (...args) {
 		switch (this.level) {
 			case 'error':
-			case 'all':
-				const finalContent = this.normalizeContent(arguments)
-				console.error('[ERROR] :: ', finalContent)
+			case 'all': {
+				const finalContent = this.normalizeContent(args)
+				console.error('[ERROR] :: ', finalContent) // eslint-disable-line 
+			}
 		}
 	}
 
@@ -198,7 +203,7 @@
 
 
 	exports.prototype.paramToString = function (param) {
-		if (param == undefined || param == null)
+		if (param === undefined || param === null)
 			return ''
 
 		if (param instanceof Date)
@@ -244,7 +249,7 @@
      * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
      */
 	exports.prototype.isJsonMime = function (contentType) {
-		return Boolean(contentType != null && contentType.match(/^application\/json(;.*)?$/i))
+		return Boolean(contentType !== null && contentType.match(/^application\/json(;.*)?$/i))
 	}
 
 	/**
@@ -275,7 +280,7 @@
 	exports.prototype.normalizeParams = function (params) {
 		const newParams = {}
 		for (const key in params)
-			if (params.hasOwnProperty(key) && params[key] != undefined && params[key] != null) {
+			if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
 				const value = params[key]
 
 				newParams[key] = this.paramToString(value)
@@ -293,7 +298,7 @@
      * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
      */
 	exports.prototype.buildCollectionParam = function buildCollectionParam (param, collectionFormat) {
-		if (param == null)
+		if (param === null)
 			return null
 
 		switch (collectionFormat) {
@@ -352,7 +357,7 @@
      */
 	exports.prototype.callApi = async function callApi (path, httpMethod, pathParams,
 		queryParams, collectionQueryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-		returnType, async, callback) {
+		returnType, async) {
 
 
 		this.info({
@@ -427,9 +432,8 @@
 			request.responseType('string')
 
 
-		return new Promise((resolve, reject) => {
+		return new Promise(resolve => {
 			request.end((error, response) => {
-				const data = null
 				if (!error)
 					try {
 						if (response.statusCode === 200 || async) {
@@ -445,7 +449,7 @@
 							})
 							resolve([ error, response.body, undefined ])
 						} else if (response.statusCode > 300) {
-							_this.error(statusCode)
+							_this.error(response.statusCode)
 							resolve([ error, undefined, undefined ])
 						}
 					} catch (err) {

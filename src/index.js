@@ -34,13 +34,13 @@
          */
 
 
-	ApiClient = new ApiClient(),
+	ApiClient = new ApiClient()
 
 	/**
          * The EventClient service constructor.
          * @property {module:api/EventClient}
          */
-	EventClient = new EventClient(ApiClient), /**
+	EventClient = new EventClient(ApiClient) /**
      * The ApiClient service constructor.
      * @property {module:api/ApiClient}
      */
@@ -48,22 +48,22 @@
          * The BlockchainApi service constructor.
          * @property {module:api/BlockchainApi}
          */
-	BlockchainApi = new BlockchainApi(ApiClient),
+	BlockchainApi = new BlockchainApi(ApiClient)
 	/**
          * The IdentitiesApi service constructor.
          * @property {module:api/IdentitiesApi}
          */
-	IdentitiesApi = new IdentitiesApi(ApiClient),
+	IdentitiesApi = new IdentitiesApi(ApiClient)
 	/**
          * The InvokeApi service constructor.
          * @property {module:api/InvokeApi}
          */
-	InvokeApi = new InvokeApi(ApiClient),
+	InvokeApi = new InvokeApi(ApiClient)
 	/**
          * The QueryApi service constructor.
          * @property {module:api/QueryApi}
          */
-	QueryApi = new QueryApi(ApiClient),
+	QueryApi = new QueryApi(ApiClient)
 	/**
          * The ResultApi service constructor.
          * @property {module:api/ResultApi}
@@ -380,7 +380,6 @@
      * @param {String} level "log level"
      */
 	function setLoggerLevel (level) {
-		console.log(level)
 		ApiClient.setLoggerLevel(level)
 	}
 

@@ -72,16 +72,16 @@
 		})
 
 		socket.on('authenticated', () => {
-
+			apiClient.debug('Authenticated')
 		})
 			.on('event', data => {
 				callback(data)
 			})
 			.on('error', err => {
-				console.error('Error', err)
+				apiClient.error('Error', err)
 			})
 			.on('unauthorized', () => {
-				console.warn('Unauthorized')
+				apiClient.warn('Unauthorized')
 				socket.disconnect()
 			})
 
