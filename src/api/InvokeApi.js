@@ -44,8 +44,6 @@
      */
 	const exports = function (apiClient) {
 		this.apiClient = apiClient || ApiClient.instance
-
-
 		/**
          * Callback function to receive the result of the invoke operation.
          * @callback module:api/InvokeApi~invokeCallback

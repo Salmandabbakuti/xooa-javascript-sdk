@@ -6,7 +6,8 @@ Xooa (pronounced ZUU-ah) is dedicated to making blockchain easy. Focus on busine
 
 ## Installing
 
-###  Nodejs
+### Nodejs (8.x+ Supported)
+
 Simply type the command into the terminal window. 
 
 ```bash

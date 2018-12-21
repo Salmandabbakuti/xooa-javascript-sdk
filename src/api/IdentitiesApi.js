@@ -58,6 +58,7 @@
          * Authenticated Identity Information
          * This End Point Returns Information about the Authenticated Identity
          * @param {module:api/IdentitiesApi~authenticatedIdentityInformationCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.currentIdentity = async function (callback) {
 			const postBody = null
@@ -96,6 +97,7 @@
          * @param {String} opts.async Call this request asynchronously without waiting for response
          * @param {String} opts.timeout Request timeout in millisecond
          * @param {module:api/IdentitiesApi~deleteIdentityCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.deleteIdentity = async function (opts, identityId, callback) {
 			this.apiClient.debug({
@@ -148,6 +150,7 @@
          * @param {String} opts.timeout Request timeout
          * @param {String} identity Request payload body
          * @param {module:api/IdentitiesApi~enrollmentCallback} callback The callback function, accepting three arguments: error, data, response
+		 * @returns {}
          */
 		this.enrollIdentity = async function (opts, identity, callback) {
 			this.apiClient.debug({
@@ -160,7 +163,7 @@
 
 			// verify the required parameter 'id' is set
 			if (identity === undefined || identity === null)
-				throw new Error("Missing the required parameter 'id' when calling enrollIdentity")
+				throw new Error("Missing the required parameter 'identity' when calling enrollIdentity")
 
 			const postBody = identity
 			const pathParams = {}
