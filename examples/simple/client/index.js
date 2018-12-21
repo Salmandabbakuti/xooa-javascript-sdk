@@ -11,7 +11,7 @@
     var blockResultID = "";
     var transactionResultID = "";
     var xooaClient = XooaClient()
-    xooaClient.setApiToken("<Your API Token>");
+    xooaClient.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJRMk1OUTc4LVo1NTQ2QlQtUUVYTUhQSC1EUlRWMkoyIiwiQXBpU2VjcmV0IjoiQmZwTTFFS1NyVU1Pa0ZqIiwiUGFzc3BocmFzZSI6ImI1N2M3ODU1YjU5NmQwNDdiM2MyM2YyYzc5ZGM2ZjQyIiwiaWF0IjoxNTQ1Mzg1NTkwfQ.S4gxHoyZfOypw3R989IuUUsJuf3ExZp_c_q6aBPZk5A");
 
     // Calling invoke methods
 
