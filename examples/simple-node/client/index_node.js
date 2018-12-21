@@ -1,4 +1,4 @@
-    var XooaClient = require("xooa-sdk")
+    var XooaClient = require("../../../src/index")
     var identityId1 = "";
     var identityId2 = "";
     var trxnId = "";
