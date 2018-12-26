@@ -1,4 +1,4 @@
-import XooaClient from '../../../src/index'
+var XooaClient = require('../../../src/index')
 
 let identityId1 = ''
 let trxnId = ''
@@ -245,6 +245,8 @@ async function runAll () {
 
 	xooaClient.subscribeAllEvents(data => {})
 	xooaClient.unsubscribe()
+
+	console.log("---------END----------")
 
 }
 
