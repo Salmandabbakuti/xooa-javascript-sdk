@@ -30,7 +30,8 @@
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIzMUZWQ1MwLTQ3MzRXTkItTTJTNzg0RC01RkZDNTlRIiwiQXBpU2VjcmV0IjoicWJLZlRXdFFNaWJqSW5KIiwiUGFzc3BocmFzZSI6IjdhZjFmYmMzY2NlZjAyNDMyNDMyZGNkZjRjMWRlYmQwIiwiaWF0IjoxNTQ3MTExNzYwfQ.hHXUdbVgKWbVowkNTkMOpa-E7m0m0h-0lSYy8k05wNs")
+
         //instance.setLoggerLevel("all")
     });
 
@@ -38,6 +39,7 @@
         describe('Getting Block Data by Number', function () {
             it('should call getBlockByNumber successfully', async function ()  {
                 this.timeout(10000)
+                console.log(instance);
                 const [error, pendingResponse, data] = await instance.getBlockByNumber("1", {});
                 if (error) throw error;
                 expect(data.previous_hash).not.to.be("");
@@ -67,8 +69,9 @@
         });
         
         describe('Getting Current Block Cases', function () {
-            it('should call getCurrentBlock successfully', async () => {
-                const [error, pendingResponse, data] = await instance.getCurrentBlock({})
+            it('should call getCurrentBlock successfully', async function() {
+                this.timeout(6000)
+                const [error, pendingResponse, data] = await instance.getCurrentBlock({timeout:30000})
                 if (error) throw error;
                 expect(data.previous_hash).not.to.be("");
                 expect(data.data_hash).not.to.be("");

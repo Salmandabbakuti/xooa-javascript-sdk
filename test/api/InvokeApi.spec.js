@@ -30,7 +30,7 @@
 
     beforeEach(function () {
         instance = new XooaJavascriptSdk();
-        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiJKSjJZWTBFLUdRRk00NkYtUEdNOEZCTS02NDlBN1ZBIiwiQXBpU2VjcmV0IjoiYm5xM1hlZ0JqTzR5clNJIiwiUGFzc3BocmFzZSI6IjZlMTg3MTlhZTBmYmFlNjA3OGVkMDE0NGYwYTE3YTczIiwiaWF0IjoxNTQ1MjI3NDE5fQ.Xj7UkwBxh6axVx4QxHpv3LZaXkHbbU3fwVhM88JVNSc")
+        instance.setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIzMUZWQ1MwLTQ3MzRXTkItTTJTNzg0RC01RkZDNTlRIiwiQXBpU2VjcmV0IjoicWJLZlRXdFFNaWJqSW5KIiwiUGFzc3BocmFzZSI6IjdhZjFmYmMzY2NlZjAyNDMyNDMyZGNkZjRjMWRlYmQwIiwiaWF0IjoxNTQ3MTExNzYwfQ.hHXUdbVgKWbVowkNTkMOpa-E7m0m0h-0lSYy8k05wNs")
        //instance.setLoggerLevel("all")
         
     });
@@ -40,7 +40,7 @@
         describe('invoke', function () {
         it('should call invoke successfully', async function () {
             this.timeout(8000)
-            const [error, pendingResponse, data] = await instance.invoke("set", {}, {args: ["abc","123"]})
+            const [error, pendingResponse, data] = await instance.invoke("set", {timeout:30000}, {args: ["abc","123"]})
             if (error) throw error;
             expect(data).not.to.be(undefined);
             txId = data.txId
