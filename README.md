@@ -1,6 +1,3 @@
-[![Build Status](http://3.84.45.239:8080/buildStatus/icon?job=xooa-javascript-sdk)](http://3.84.45.239:8080/job/xooa-javascript-sdk/)
-
-
 # Xooa SDK for JavaScript
 
 The official Xooa SDK for Javascript, for browsers and mobile devices, or Node.js backends
