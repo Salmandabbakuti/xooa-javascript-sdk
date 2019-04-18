@@ -1,4 +1,4 @@
-# Xooa SDK for JavaScript
+# Xooa JavaScript SDK
 
 The official Xooa SDK for Javascript, for browsers and mobile devices, or Node.js backends
 
