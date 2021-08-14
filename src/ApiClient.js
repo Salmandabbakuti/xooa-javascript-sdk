@@ -52,7 +52,7 @@
          * @type {String}
          * @default https://api.xooa.com/api/v1/
          */
-		this.basePath = 'https://api.xooa.com/api/v1/'.replace(/\/+$/, '')
+		this.basePath = 'https://api.xooa.com/api/v2/'.replace(/\/+$/, '')
 
 		/**
          * Token

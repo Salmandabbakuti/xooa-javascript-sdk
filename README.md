@@ -192,6 +192,16 @@ console.log(error, pendingResponse, data);
 [error, pendingResponse, data] = await xooaClient.getTransactionByTransactionIdAsync("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874", {});
 console.log(error, pendingResponse, data);
 
+// To get current worldstate transactions with the applied filters, call getWorldStateTransactions method
+// Use epoch time in milliseconds i.e 1587257689020 when using from or to in opts
+[error, pendingResponse, response] = await xooaClient.getWorldStateTransactions({from: 1626333463711, to: 1628925463711, limit: 20, offset: 0, key: '123', value:'123'});
+console.log(error, pendingResponse, data);
+
+// To get current worldstate with the applied filters, call getCurrentWorldState method
+// Use epoch time in milliseconds i.e 1587257689020 when using from or to in opts
+[error, pendingResponse, response] = await xooaClient.getCurrentWorldState({from: 1626333463711, to: 1628925463711, limit: 20, offset: 0, key: '123', value:'123'});
+console.log(error, pendingResponse, data);
+
 // // Calling results methods
 
 // // To get result for block pending request, call getResultForBlockByNumber method

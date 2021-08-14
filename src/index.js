@@ -145,7 +145,27 @@
 	async function getTransactionByTransactionIdAsync (txId, opts, callback) {
 		Object.assign(opts, { async: true })
 		return await BlockchainApi.getTransactionByTransactionId(txId, opts, callback)
-	}
+     }
+
+     /**
+     * Gets the current worldstate with the applied filters
+     * Gets current worldstate list for last 30 days by default
+     * @param {Object} opts Optional parameters
+     * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+     async function getCurrentWorldState(opts, callback) {
+          return await BlockchainApi.getCurrentWorldState(opts, callback)
+     }
+
+     /**
+     * Gets the worldstate transactions with the applied filters
+     * Gets transactions list for last 30 days by default
+     * @param {Object} opts Optional parameters
+     * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+     async function getWorldStateTransactions(opts, callback) {
+          return await BlockchainApi.getWorldStateTransactions(opts, callback)
+     }
 
 	/**
      * Query Blockchain data
@@ -432,6 +452,8 @@
 			getResultForTransaction,
 			getCurrentBlock,
 			getCurrentBlockAsync,
+               getCurrentWorldState,
+               getWorldStateTransactions,
 			query,
 			queryAsync,
 			invoke,

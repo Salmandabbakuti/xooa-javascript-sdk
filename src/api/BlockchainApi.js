@@ -208,6 +208,86 @@
 				contentTypes, accepts, returnType, queryParams.async
 			)
 		}
+
+
+		/**
+				 * Gets the current worldstate with the applied filters
+				 * Gets current worldstate list for last 30 days by default
+				 * @param {Object} opts Optional parameters
+				 * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+				 * @returns {}
+				 */
+		this.getCurrentWorldState = async function (opts, callback) {
+			opts = opts || {}
+			const postBody = null
+			this.apiClient.debug({
+				fn: 'getCurrentWorldState',
+				opts,
+			})
+
+			const pathParams = {}
+			const queryParams = {
+				from: opts.from || Date.now() - 2592000000,
+				to: opts.to || Date.now(),
+				key: opts.key,
+				value: opts.value,
+				limit: opts.limit || 10,
+				offset: opts.offset || 0
+			}
+			const collectionQueryParams = {}
+			const headerParams = {}
+			const formParams = {}
+
+			const contentTypes = []
+			const accepts = []
+			const returnType = null
+
+			return await this.apiClient.callApi(
+				'/worldstate/', 'GET',
+				pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, queryParams.async, callback
+			)
+		}
+
+		/**
+				 * Gets the worldstate transactions with the applied filters
+				 * Gets transactions list for last 30 days by default
+				 * @param {Object} opts Optional parameters
+				 * @param {module:api/BlockchainApi~transactionCallback} callback The callback function, accepting three arguments: error, data, response
+				 * @returns {}
+				 */
+		this.getWorldStateTransactions = async function (opts, callback) {
+			opts = opts || {}
+			const postBody = null
+			this.apiClient.debug({
+				fn: 'getWorldStateTransactions',
+				opts,
+			})
+
+			const pathParams = {}
+			const queryParams = {
+				from: opts.from || Date.now() - 2592000000,
+				to: opts.to || Date.now(),
+				key: opts.key,
+				value: opts.value,
+				limit: opts.limit || 10,
+				offset: opts.offset || 0
+			}
+			const collectionQueryParams = {}
+			const headerParams = {}
+			const formParams = {}
+
+			const contentTypes = []
+			const accepts = []
+			const returnType = null
+
+			return await this.apiClient.callApi(
+				'/worldstate/transactions', 'GET',
+				pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, queryParams.async, callback
+			)
+		}
+
 	}
 
 	return exports
